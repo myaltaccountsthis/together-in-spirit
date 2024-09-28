@@ -37,6 +37,9 @@ public class CameraSystem : MonoBehaviour
 
     private void UpdateCamera() {
         Vector2 playerPos = player.transform.position, spiritPos = spirit.transform.position;
+        if (!spirit.gameObject.activeSelf) {
+            spiritPos = playerPos;
+        }
         Vector2 size = new(Mathf.Abs(playerPos.x - spiritPos.x) + PADDING, Mathf.Abs(playerPos.y - spiritPos.y) + PADDING);
         Vector2 position = (playerPos + spiritPos) / 2f;
         float targetSize = Mathf.Clamp(Mathf.Max(size.x / camera.aspect, size.y) / 2f, MIN_SIZE, MAX_SIZE);
@@ -53,8 +56,12 @@ public class CameraSystem : MonoBehaviour
             );
             position += offset;
         }
+        Vector2 posDistance = position - (Vector2)transform.position;
+        Vector2 posDelta = posDistance.normalized * (posDistance.magnitude * 10f + .25f) * Time.deltaTime;
+        if (posDelta.magnitude > posDistance.magnitude)
+            posDelta = posDistance;
         camera.orthographicSize += delta;
-        camera.transform.position = new Vector3(position.x, position.y, camera.transform.position.z);
+        camera.transform.position += new Vector3(posDelta.x, posDelta.y, 0);
     }
 
     public void BeginCutscene() {

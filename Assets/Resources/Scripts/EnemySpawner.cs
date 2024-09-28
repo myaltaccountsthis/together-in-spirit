@@ -61,7 +61,8 @@ public class EnemySpawner : MonoBehaviour
     void SpawnWave() {
         for (int i = 0; i < spawnCount[currentWave].Length; i++) {
             for (int j = 0; j < spawnCount[currentWave][i]; j++) {
-                Enemy enemy = Instantiate(enemyPrefabs[i], spawnLocations[UnityEngine.Random.Range(0, spawnLocations.Length)], Quaternion.identity);
+                Enemy enemy = Instantiate(enemyPrefabs[i], spawnLocations[UnityEngine.Random.Range(0, spawnLocations.Length)]
+                + new Vector2(UnityEngine.Random.Range(-.1f, .1f), UnityEngine.Random.Range(-.1f, .1f)), Quaternion.identity);
                 enemies.Add(enemy);
             }
         }
