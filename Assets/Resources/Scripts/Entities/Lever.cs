@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Lever : Interactable
 {
-    public GameObject[] doors;
+    public UnityEvent enable;
+    public UnityEvent disable;
     public Sprite activeSprite, inactiveSprite;
 
     private SpriteRenderer spriteRenderer;
@@ -27,8 +29,14 @@ public class Lever : Interactable
     public override void Interact(User user)
     {
         activated = !activated;
-        foreach (GameObject door in doors)
-            door.SetActive(!activated);
+        if(activated)
+        {
+            enable.Invoke();
+        }
+        else
+        {
+            disable.Invoke();
+        }
         UpdateSprite();
     }
 }
