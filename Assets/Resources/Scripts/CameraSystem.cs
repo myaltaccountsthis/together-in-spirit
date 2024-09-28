@@ -39,7 +39,6 @@ public class CameraSystem : MonoBehaviour
                 -Mathf.Max(0, position.y - MAX_SIZE - (playerPos.y - PADDING / 2f)) + Mathf.Max(0, playerPos.y + PADDING / 2f - (position.y + MAX_SIZE))
             );
             position += offset;
-            Debug.Log(offset);
         }
         camera.orthographicSize += delta;
         camera.transform.position = new Vector3(position.x, position.y, camera.transform.position.z);

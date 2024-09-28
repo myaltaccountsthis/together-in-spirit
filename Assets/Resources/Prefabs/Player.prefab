@@ -100,7 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47ce4684e3fb19e479c046012a58d59d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
+  attackCooldown: 1
   interactUI: {fileID: 0}
+  attackHitbox: {fileID: 4012913262426284374, guid: 0861a6d428aab3f49914ddf1fee7ea0b, type: 3}
   dialogueManager: {fileID: 0}
   spirit: {fileID: 0}
   dataManager: {fileID: 0}
@@ -152,7 +155,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -227,6 +230,26 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 20cf4d50-6aad-49da-9f9a-e02a6ce4e932
     m_ActionName: General/SpiritInteract[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5647783783047290317}
+        m_TargetAssemblyTypeName: User, Assembly-CSharp
+        m_MethodName: DoAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4afbd69c-dbfb-4f1c-9ffd-addd4514affa
+    m_ActionName: General/PlayerAttack[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c7eb96f2-fe8b-47c7-8840-3d7f4b4838ab
+    m_ActionName: General/SpiritAttack[/Keyboard/rightShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: General
