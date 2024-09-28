@@ -2,18 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spirit : Entity
+public class Spirit : User
 {
     private const float MOVE_SPEED = 5f;
 
     [SerializeField] private Player player;
     private new Rigidbody2D rigidbody;
 
-    void Awake() {
+    protected override void Awake() {
+        base.Awake();
         rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    void FixedUpdate() {
+    protected override void FixedUpdate() {
+        base.FixedUpdate();
         Vector2 myPosition = transform.position;
         Vector2 movement = new(Input.GetAxis("SpiritHorizontal"), Input.GetAxis("SpiritVertical"));
         if (movement.magnitude > 1)
@@ -21,13 +23,12 @@ public class Spirit : Entity
         rigidbody.MovePosition(myPosition + MOVE_SPEED * Time.deltaTime * new Vector2(movement.x, movement.y));
     }
 
-    public void Die() {
+    public override void Die() {
         Debug.Log("Spirit should die here");
     }
 
-    void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("SpiritDanger")) {
-            Die();
-        }
+    protected override bool CanInteractWith(Interactable interactable)
+    {
+        return interactable.CanSpiritInteract;
     }
 }

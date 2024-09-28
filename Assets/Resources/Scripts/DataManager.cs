@@ -3,10 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public struct Data {
-
+    public int roomIndex;
 };
 
 public class DataManager : MonoBehaviour
 {
-    
+    public Data currentData;
+
+    void Awake() {
+        Load();
+    }
+
+    void OnDestroy() {
+        Save();
+    }
+
+    private void Load() {
+        // Load data
+        currentData = GetDefaultData();
+        currentData.roomIndex = PlayerPrefs.GetInt("roomIndex", currentData.roomIndex);
+    }
+
+    private void Save() {
+        PlayerPrefs.SetInt("roomIndex", currentData.roomIndex);
+        Debug.Log("Save successful");
+    }
+
+    private Data GetDefaultData() {
+        return new Data() {
+            roomIndex = 0
+        };
+    }
 }
