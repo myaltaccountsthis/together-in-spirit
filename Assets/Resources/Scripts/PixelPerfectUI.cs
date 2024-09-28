@@ -7,8 +7,13 @@ using UnityEngine.UI;
 public class PixelPerfectUI : MonoBehaviour
 {
     private Camera MainCamera;
+    private CanvasScaler canvasScaler;
+    private int defaultHeight;
+
     void Start() {
         MainCamera = Camera.main;
+        canvasScaler = GetComponent<CanvasScaler>();
+        defaultHeight = MainCamera.GetComponent<PixelPerfectCamera>().refResolutionY;
         AdjustScalingFactor();
     }
 
@@ -16,7 +21,11 @@ public class PixelPerfectUI : MonoBehaviour
         AdjustScalingFactor();
     }
 
-    void AdjustScalingFactor() {
-        GetComponent<CanvasScaler>().scaleFactor = MainCamera.GetComponent<PixelPerfectCamera>().pixelRatio;
+    private int GetPixelRatio() {
+        return Mathf.Max(Screen.height / defaultHeight, 1);
+    }
+
+    private void AdjustScalingFactor() {
+        canvasScaler.scaleFactor = GetPixelRatio();
     }
 }

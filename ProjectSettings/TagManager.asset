@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SpiritDanger
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - UI
   - Entities
   - Player
-  - 
+  - Spirit
   - 
   - 
   - 
@@ -46,6 +47,9 @@ TagManager:
     locked: 0
   - name: Entities
     uniqueID: 1724577875
+    locked: 0
+  - name: Spirit
+    uniqueID: 1758040325
     locked: 0
   - name: Player
     uniqueID: 2153690677
