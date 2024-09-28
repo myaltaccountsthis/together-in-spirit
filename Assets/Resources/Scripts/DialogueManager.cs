@@ -25,7 +25,7 @@ public class DialogueManager : MonoBehaviour, IPointerClickHandler
     private int typewriterIndex = 0;
     private bool active = false, debounce = false, shouldSkipTypewriter = false;
 
-    private Vector3 openPosition, closedPosition;
+    private Vector2 openPosition, closedPosition;
 
     void Awake() {
         rectTransform = GetComponent<RectTransform>();
@@ -33,8 +33,8 @@ public class DialogueManager : MonoBehaviour, IPointerClickHandler
         header = inner.Find("Header").GetComponent<TextMeshProUGUI>();
         body = inner.Find("Body").GetComponent<TextMeshProUGUI>();
         arrow = inner.Find("Arrow").GetComponent<TextMeshProUGUI>();
-        openPosition = new Vector3(0, 30);
-        closedPosition = new Vector3(0, -rectTransform.sizeDelta.y - rectTransform.anchoredPosition.y - 10);
+        openPosition = new Vector2(0, 30);
+        closedPosition = new Vector2(0, -rectTransform.sizeDelta.y - rectTransform.anchoredPosition.y - 10);
     }
 
     void Start() {

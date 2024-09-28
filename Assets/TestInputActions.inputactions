@@ -2,13 +2,22 @@
     "name": "TestInputActions",
     "maps": [
         {
-            "name": "Test",
+            "name": "General",
             "id": "3347fb97-8f85-41db-8a0f-28c0a926e84f",
             "actions": [
                 {
                     "name": "Test",
                     "type": "Button",
                     "id": "6e74b908-a3d0-4d66-bce0-690c8db7e70e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "0d62728e-1a11-4d66-90a2-54afd25ac3ae",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -24,6 +33,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Test",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0d6300f0-a7b8-4292-a605-39c2db5440c1",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
