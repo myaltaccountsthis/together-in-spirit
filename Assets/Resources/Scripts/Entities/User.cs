@@ -14,12 +14,21 @@ public abstract class User : Entity
     public RectTransform interactUI;
     protected HashSet<Interactable> currentInteractables;
     private Vector2 interactOpenPosition, interactClosedPosition;
+    protected CameraSystem cameraSystem;
+
+    private bool canMoveInternal = true;
+    public bool CanMove { get => canMoveInternal; set {
+        canMoveInternal = value;
+        if (!canMoveInternal)
+            HideInteract();
+    } }
 
     protected override void Awake()
     {
         base.Awake();
         interactOpenPosition = interactUI.anchoredPosition;
         interactClosedPosition = new Vector2(interactOpenPosition.x, -interactUI.sizeDelta.y - interactOpenPosition.y - 10);
+        cameraSystem = Camera.main.GetComponent<CameraSystem>();
     }
 
     protected override void Start()
@@ -37,6 +46,8 @@ public abstract class User : Entity
                 interactable.Interact(this);
                 return;
             }
+            if (!CanMove)
+                return;
             currentInteractables.Add(interactable);
             if (currentInteractables.Count == 1)
                 ShowInteract();

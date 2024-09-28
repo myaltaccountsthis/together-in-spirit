@@ -7,9 +7,11 @@ public class MirrorLevel : MonoBehaviour
 {
     public LineRenderer lineRenderer;
     public Transform mirrorFolder, wallFolder;
+    public GameObject wall;
 
     private new EdgeCollider2D collider;
     private Vector3Int origin;
+    private Vector3Int target;
     [SerializeField] private Vector3Int initialDirection;
     private Mirror[,] mirrorMatrix;
     private bool[,] impasssable;
@@ -19,18 +21,29 @@ public class MirrorLevel : MonoBehaviour
     private Vector3Int Vector3ToVector3IntFloored(Vector3 vector) {
         return new(Mathf.RoundToInt(vector.x - .5f), Mathf.RoundToInt(vector.y - .5f));
     }
-    private Vector3Int Vector3ToVector3Int(Vector3 vector) {
-        return new(Mathf.RoundToInt(vector.x), Mathf.RoundToInt(vector.y));
-    }
 
     void Awake() {
         collider = lineRenderer.GetComponent<EdgeCollider2D>();
-        Bounds floatBounds = GetComponent<BoxCollider2D>().bounds;
-        bottomLeft = Vector3ToVector3Int(floatBounds.min);
-        topRight = Vector3ToVector3Int(floatBounds.max);
-        boundsSize = new(topRight.x - bottomLeft.x, topRight.y - bottomLeft.y);
         Vector3 originPos = transform.Find("Origin").position;
+        Vector3 targetPos = transform.Find("Target").position;
+        // Find bounds
+        bottomLeft = Vector3Int.Min(Vector3ToVector3IntFloored(originPos), Vector3ToVector3IntFloored(targetPos));
+        topRight = Vector3Int.Max(Vector3ToVector3IntFloored(originPos), Vector3ToVector3IntFloored(targetPos));
+        foreach (Transform transform in mirrorFolder) {
+            Vector3Int localPos = Vector3ToVector3IntFloored(transform.position);
+            bottomLeft = Vector3Int.Min(bottomLeft, localPos);
+            topRight = Vector3Int.Max(topRight, localPos);
+        }
+        foreach (Transform transform in wallFolder) {
+            Vector3Int localPos = Vector3ToVector3IntFloored(transform.position);
+            bottomLeft = Vector3Int.Min(bottomLeft, localPos);
+            topRight = Vector3Int.Max(topRight, localPos);
+        }
+        topRight = new(topRight.x + 1, topRight.y + 1);
+        boundsSize = new(topRight.x - bottomLeft.x, topRight.y - bottomLeft.y);
+        // Initialize origin, mirror matrix
         origin = Vector3ToVector3IntFloored(originPos - bottomLeft);
+        target = Vector3ToVector3IntFloored(targetPos - bottomLeft);
         mirrorMatrix = new Mirror[boundsSize.x, boundsSize.y];
         foreach (Transform mirrorTransform in mirrorFolder) {
             Mirror mirror = mirrorTransform.GetComponent<Mirror>();
@@ -71,8 +84,13 @@ public class MirrorLevel : MonoBehaviour
         List<Vector3Int> localPoints = new() { origin };
         Vector3Int direction = initialDirection;
         Vector3Int prevPoint = localPoints[0];
+        bool reachedTarget = false;
         // Generate the key points on the path
         while (InBounds(prevPoint) && !impasssable[prevPoint.x, prevPoint.y]) {
+            if (prevPoint.Equals(target)) {
+                reachedTarget = true;
+                break;
+            }
             Mirror mirror = mirrorMatrix[prevPoint.x, prevPoint.y];
             if (mirror != null) {
                 ChangeDirection(ref direction, mirror.Rotated);
@@ -86,5 +104,6 @@ public class MirrorLevel : MonoBehaviour
         lineRenderer.positionCount = points.Length;
         lineRenderer.SetPositions(points);
         collider.SetPoints(pointsList);
+        wall.SetActive(!reachedTarget);
     }
 }
