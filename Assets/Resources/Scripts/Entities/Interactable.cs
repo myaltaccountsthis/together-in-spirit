@@ -4,5 +4,9 @@ using UnityEngine;
 
 public abstract class Interactable : Entity
 {
-    public abstract void Interact();
+    public bool CanPlayerInteract = true;
+    public bool CanSpiritInteract = false;
+    public bool AutoInteract = false;
+
+    public abstract void Interact(User user);
 }

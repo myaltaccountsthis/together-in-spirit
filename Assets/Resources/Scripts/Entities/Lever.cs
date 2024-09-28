@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Lever : Interactable
 {
-    public GameObject door;
+    public GameObject[] doors;
     private bool activated = false;
 
-    public override void Interact()
+    public override void Interact(User user)
     {
         activated = !activated;
-        door.SetActive(!activated);
+        foreach (GameObject door in doors)
+            door.SetActive(!activated);
     }
 }
