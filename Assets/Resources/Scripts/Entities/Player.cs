@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class Player : Entity
 {
     private const float MOVE_SPEED = 4f;
-    private const float TWEEN_DURATION = .5f;
+    private const float TWEEN_DURATION = .3f;
 
     // Important component references
     public DialogueManager dialogueManager;

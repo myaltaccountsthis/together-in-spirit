@@ -19,7 +19,6 @@ public class Spirit : Entity
         if (movement.magnitude > 1)
             movement.Normalize();
         rigidbody.MovePosition(myPosition + MOVE_SPEED * Time.deltaTime * new Vector2(movement.x, movement.y));
-        Debug.Log(movement);
     }
 
     public void Die() {
