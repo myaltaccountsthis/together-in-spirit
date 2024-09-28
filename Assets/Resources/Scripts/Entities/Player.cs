@@ -50,7 +50,6 @@ public class Player : User
     {
         if (!base.Attack())
             return false;
-        
         // TODO: Impl attack
         PlayerAttack newAttack = Instantiate<PlayerAttack>(attackHitbox, transform.position, Quaternion.identity);
         newAttack.SetDirection(lastAngle);
@@ -66,9 +65,9 @@ public class Player : User
         Debug.Log("Player should die here");
     }
 
-    public void OpenUITest(InputAction.CallbackContext context) {
+    public void DoTest(InputAction.CallbackContext context) {
         if (context.performed)
-            dialogueManager.Show(new Dialogue("Test Sender", new string[] { "This is a test dialogue.", "Next dialogue test lmfao" }));
+            cameraSystem.FlashVignette();
     }
 
 

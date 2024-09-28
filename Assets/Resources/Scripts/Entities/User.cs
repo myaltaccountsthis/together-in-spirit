@@ -103,6 +103,7 @@ public abstract class User : LivingEntity
     public override void TakeDamage(int damage) {
         base.TakeDamage(damage);
         // Do some post processing vignette
+        cameraSystem.FlashVignette();
     }
 
     public virtual bool Attack() {

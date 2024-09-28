@@ -10,6 +10,7 @@ public class Enemy : LivingEntity
     protected bool active;
     [SerializeField] protected Player player;
     [SerializeField] protected Spirit spirit;
+    private Animator animator;
 
     protected override void Awake()
     {
@@ -17,14 +18,19 @@ public class Enemy : LivingEntity
         active = true;
         player = FindObjectOfType<Player>();
         spirit = FindObjectOfType<Spirit>();
+        animator = GetComponent<Animator>();
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
         if (active)
         {
             Move();
+        }
+        else {
+            animator.SetFloat("Horizontal", 0f);
+            animator.SetFloat("Vertical", 0f);
         }
     }
 
@@ -35,7 +41,10 @@ public class Enemy : LivingEntity
         {
             closerPos = spirit.transform.position;
         }
-        transform.position = Vector2.MoveTowards(transform.position, closerPos, speed * Time.deltaTime);
+        rigidbody.position = Vector2.MoveTowards(transform.position, closerPos, speed * Time.deltaTime);
+        Vector2 movement = closerPos - (Vector2)transform.position;
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
