@@ -30,8 +30,17 @@ public class CameraSystem : MonoBehaviour
         float mySize = camera.orthographicSize;
         float distance = targetSize - mySize;
         float delta = Mathf.Sign(distance) * (Mathf.Abs(distance) * 3f + .25f) * Time.deltaTime;
+        float scale = Mathf.Max(size.x / camera.aspect, size.y) / 2;
         if (Mathf.Abs(delta) > Mathf.Abs(distance))
             delta = distance;
+        if (scale > MAX_SIZE) {
+            Vector2 offset = new Vector2(
+                -Mathf.Max(0, position.x - MAX_SIZE * camera.aspect - (playerPos.x - PADDING / 2f)) + Mathf.Max(0, playerPos.x + PADDING / 2f - (position.x + MAX_SIZE * camera.aspect)),
+                -Mathf.Max(0, position.y - MAX_SIZE - (playerPos.y - PADDING / 2f)) + Mathf.Max(0, playerPos.y + PADDING / 2f - (position.y + MAX_SIZE))
+            );
+            position += offset;
+            Debug.Log(offset);
+        }
         camera.orthographicSize += delta;
         camera.transform.position = new Vector3(position.x, position.y, camera.transform.position.z);
     }
