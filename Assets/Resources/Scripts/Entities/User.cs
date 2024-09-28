@@ -30,7 +30,8 @@ public abstract class User : LivingEntity
         }
     } }
     protected float lastAngle;
-
+    public AudioSource damageSound;
+    
     protected override void Awake()
     {
         base.Awake();

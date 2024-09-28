@@ -15,17 +15,25 @@ public class Player : User
     public DialogueManager dialogueManager;
     public Spirit spirit;
     public DataManager dataManager;
+    private Animator animator;
 
     protected override void Awake() {
         base.Awake();
         dialogueManager.gameObject.SetActive(true);
+        animator = GetComponent<Animator>();
     }
 
     protected override void FixedUpdate() {
-        if (!CanMove)
+        if (!CanMove) {
+            animator.SetFloat("Horizontal", 0f);
+            animator.SetFloat("Vertical", 0f);
             return;
+        }
+        base.FixedUpdate();
         Vector2 myPosition = transform.position;
         Vector2 movement = new(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
         if (movement.magnitude > 1)
             movement.Normalize();
         if (movement.magnitude > 0)

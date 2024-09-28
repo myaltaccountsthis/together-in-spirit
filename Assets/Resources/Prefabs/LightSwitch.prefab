@@ -148,3 +148,5 @@ MonoBehaviour:
   AutoInteract: 0
   doors:
   - {fileID: 0}
+  activeSprite: {fileID: 0}
+  inactiveSprite: {fileID: 0}
