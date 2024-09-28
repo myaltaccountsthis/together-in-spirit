@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 public class Player : User
 {
     private const float MOVE_SPEED = 4f;
-    private const float TWEEN_DURATION = .3f;
 
     [SerializeField] private PlayerAttack attackHitbox;
 
@@ -23,6 +22,8 @@ public class Player : User
     }
 
     protected override void FixedUpdate() {
+        if (!CanMove)
+            return;
         Vector2 myPosition = transform.position;
         Vector2 movement = new(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (movement.magnitude > 1)

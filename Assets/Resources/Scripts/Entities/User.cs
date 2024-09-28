@@ -16,6 +16,19 @@ public abstract class User : LivingEntity
     public RectTransform interactUI;
     protected HashSet<Interactable> currentInteractables;
     private Vector2 interactOpenPosition, interactClosedPosition;
+    protected CameraSystem cameraSystem;
+
+    private bool canMoveInternal = true;
+    public bool CanMove { get => canMoveInternal; set {
+        canMoveInternal = value;
+        if (canMoveInternal) {
+            HideInteract();
+            rigidbody.constraints |= RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+        }
+        else {
+            rigidbody.constraints &= ~RigidbodyConstraints2D.FreezePositionX & ~RigidbodyConstraints2D.FreezePositionY;
+        }
+    } }
     protected float lastAngle;
 
     protected override void Awake()
@@ -23,6 +36,7 @@ public abstract class User : LivingEntity
         base.Awake();
         interactOpenPosition = interactUI.anchoredPosition;
         interactClosedPosition = new Vector2(interactOpenPosition.x, -interactUI.sizeDelta.y - interactOpenPosition.y - 10);
+        cameraSystem = Camera.main.GetComponent<CameraSystem>();
         attackTimer = 0;
         lastAngle = 0;
     }
@@ -48,6 +62,8 @@ public abstract class User : LivingEntity
                 interactable.Interact(this);
                 return;
             }
+            if (!CanMove)
+                return;
             currentInteractables.Add(interactable);
             if (currentInteractables.Count == 1)
                 ShowInteract();
