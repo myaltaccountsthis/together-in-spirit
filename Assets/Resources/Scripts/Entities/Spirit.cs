@@ -9,9 +9,16 @@ public class Spirit : User
 
     [SerializeField] private Player player;
     [SerializeField] private SpiritAttack attackHitbox;
+    private Animator animator;
 
     /// <summary> Is the spirit trapped? (Boss fight) </summary>
     private bool trapped;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        animator = GetComponent<Animator>();
+    }
 
     protected override void Start()
     {
@@ -20,11 +27,16 @@ public class Spirit : User
     }
 
     protected override void FixedUpdate() {
-        if (!CanMove || trapped)
+        if (!CanMove || trapped) {
+            animator.SetFloat("Horizontal", 0f);
+            animator.SetFloat("Vertical", 0f);
             return;
+        }
         base.FixedUpdate();
         Vector2 myPosition = transform.position;
         Vector2 movement = new(Input.GetAxis("SpiritHorizontal"), Input.GetAxis("SpiritVertical"));
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
         if (movement.magnitude > 1)
             movement.Normalize();
         if (movement.magnitude > 0)
@@ -49,7 +61,7 @@ public class Spirit : User
 
     public void TrapSpirit() {
         trapped = true;
-        CanMove = true;
+        CanMove = false;
         StartCoroutine(cameraSystem.StartTrapSpiritAnimation());
     }
 
@@ -58,7 +70,7 @@ public class Spirit : User
         if (!base.Attack())
             return false;
         
-        SpiritAttack newAttack = Instantiate<SpiritAttack>(attackHitbox, transform.position, Quaternion.identity);
+        SpiritAttack newAttack = Instantiate(attackHitbox, transform.position, Quaternion.identity);
         newAttack.SetDirection(lastAngle);
         newAttack.transform.localPosition = transform.position + new Vector3(Mathf.Cos(lastAngle), Mathf.Sin(lastAngle), 0) * newAttack.getDistanceOffset();
         return true;

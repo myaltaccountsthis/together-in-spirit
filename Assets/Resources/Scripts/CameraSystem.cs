@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 
 public class CameraSystem : MonoBehaviour
@@ -18,11 +19,13 @@ public class CameraSystem : MonoBehaviour
     public Image cover;
 
     private new Camera camera;
+    private PostProcessVolume volume;
     private bool cutsceneMode;
 
     void Awake() {
         camera = Camera.main;
         camera.orthographicSize = MIN_SIZE;
+        volume = GetComponent<PostProcessVolume>();
     }
 
     void Start() {
@@ -33,6 +36,11 @@ public class CameraSystem : MonoBehaviour
         if (cutsceneMode)
             return;
         UpdateCamera();
+    }
+
+    public void FlashVignette() {
+        LeanTween.cancel(volume.gameObject);
+        LeanTween.value(volume.gameObject, value => volume.weight = value, 1, 0, .6f).setEaseOutSine();
     }
 
     private void UpdateCamera() {
