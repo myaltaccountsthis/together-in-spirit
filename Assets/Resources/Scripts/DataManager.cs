@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public struct Data {
     public int roomIndex;
@@ -33,5 +34,10 @@ public class DataManager : MonoBehaviour
         return new Data() {
             roomIndex = 0
         };
+    }
+
+    public void SwitchScene(string sceneName) {
+        Save();
+        SceneManager.LoadScene(sceneName);
     }
 }

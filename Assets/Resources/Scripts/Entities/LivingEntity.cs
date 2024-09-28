@@ -11,6 +11,7 @@ public abstract class LivingEntity : Entity
 
     protected override void Awake()
     {
+        base.Awake();
         health = maxHealth;
         hitbox = GetComponent<Collider2D>();
         rigidbody = GetComponent<Rigidbody2D>();
