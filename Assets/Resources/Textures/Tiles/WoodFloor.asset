@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: WallT
+  m_Name: WoodFloor
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -822870174, guid: c5d8389d7a9b91a4ebe0d8a1290c3aeb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 15d87488f26fc204b90375f66f66c5a1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
