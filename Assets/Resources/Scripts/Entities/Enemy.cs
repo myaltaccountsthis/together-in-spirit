@@ -7,6 +7,7 @@ public class Enemy : LivingEntity
 {
     [SerializeField] protected int damage;
     [SerializeField] protected float speed;
+    [SerializeField] protected int score;
     protected bool active;
     [SerializeField] protected Player player;
     [SerializeField] protected Spirit spirit;
@@ -58,6 +59,8 @@ public class Enemy : LivingEntity
 
     public override void Die()
     {
+        base.Die();
+        GameObject.FindWithTag("GameController").GetComponent<DataManager>().currentData.score += score;
         Destroy(gameObject);
     }
 }

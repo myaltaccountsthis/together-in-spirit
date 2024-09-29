@@ -12,15 +12,12 @@ public class Player : User
     [SerializeField] private PlayerAttack attackHitbox;
 
     // Important component references
-    public DialogueManager dialogueManager;
     public Spirit spirit;
     public DataManager dataManager;
-    private Animator animator;
 
     protected override void Awake() {
         base.Awake();
         dialogueManager.gameObject.SetActive(true);
-        animator = GetComponent<Animator>();
     }
 
     protected override void FixedUpdate() {
@@ -55,14 +52,6 @@ public class Player : User
         newAttack.SetDirection(lastAngle);
         newAttack.transform.localPosition = transform.position + new Vector3(Mathf.Cos(lastAngle), Mathf.Sin(lastAngle), 0) * newAttack.getDistanceOffset();
         return true;
-    }
-
-    public override void TakeDamage(int damage) {
-        base.TakeDamage(damage);
-    }
-
-    public override void Die() {
-        Debug.Log("Player should die here");
     }
 
     public void DoTest(InputAction.CallbackContext context) {

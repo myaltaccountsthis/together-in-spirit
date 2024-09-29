@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class LivingEntity : Entity
 {
-    [SerializeField] protected int maxHealth;
-    protected int health;
+    [SerializeField] private int MaxHealth;
+    public int Health { get; protected set; }
     protected Collider2D hitbox;
     protected new Rigidbody2D rigidbody;
     private HealthBar healthBar;
@@ -16,30 +16,38 @@ public abstract class LivingEntity : Entity
         base.Awake();
         hitbox = GetComponent<Collider2D>();
         rigidbody = GetComponent<Rigidbody2D>();
-        healthBar = Instantiate(Resources.Load<HealthBar>("Prefabs/HealthBar"), GameObject.Find("WorldCanvas").transform);
-        healthBar.attachment = transform;
-        healthBar.scale = healthBarScale;
-        healthBar.gameObject.SetActive(false);
     }
 
     protected override void Start()
     {
         base.Start();
-        health = maxHealth;
-        healthBar.Health = 1f;
+        Respawn();
     }
 
     public virtual void TakeDamage(int damage)
     {
-        health -= damage;
-        healthBar.Health = (float)health / maxHealth;
+        if (Health < 0)
+            return;
+        Health -= damage;
+        healthBar.Health = (float)Health / MaxHealth;
         healthBar.gameObject.SetActive(true);
-        if (health <= 0)
+        if (Health <= 0)
         {
-            Destroy(healthBar.gameObject);
             Die();
+            Health = -1;
         }
     }
 
-    public abstract void Die();
+    public virtual void Die() {
+        Destroy(healthBar.gameObject);
+    }
+
+    public virtual void Respawn() {
+        healthBar = Instantiate(Resources.Load<HealthBar>("Prefabs/HealthBar"), GameObject.Find("WorldCanvas").transform);
+        healthBar.attachment = transform;
+        healthBar.scale = healthBarScale;
+        healthBar.gameObject.SetActive(false);
+        Health = MaxHealth;
+        healthBar.Health = 1f;
+    }
 }
