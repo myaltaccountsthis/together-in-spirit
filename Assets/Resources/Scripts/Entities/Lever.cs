@@ -8,7 +8,7 @@ public class Lever : Interactable
     public UnityEvent enable;
     public UnityEvent disable;
     public Sprite activeSprite, inactiveSprite;
-
+    public AudioClip flipSound;
     private SpriteRenderer spriteRenderer;
     private bool activated = false;
 
@@ -29,6 +29,7 @@ public class Lever : Interactable
     public override void Interact(User user)
     {
         activated = !activated;
+        AudioSource.PlayClipAtPoint(flipSound, transform.position);
         if(activated)
         {
             enable.Invoke();

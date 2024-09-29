@@ -12,6 +12,7 @@ public abstract class User : LivingEntity
     private const float TWEEN_DURATION = .3f;
 
     [SerializeField] protected float attackCooldown;
+    public AudioClip attackSound;
     protected float attackTimer;
     public RectTransform interactUI;
     protected HashSet<Interactable> currentInteractables;
@@ -32,7 +33,6 @@ public abstract class User : LivingEntity
     } }
     protected float lastAngle;
     public DialogueManager dialogueManager;
-    public AudioSource damageSound;
     
     protected override void Awake()
     {
@@ -131,6 +131,7 @@ public abstract class User : LivingEntity
     public virtual bool Attack() {
         if (attackTimer > 0)
             return false;
+        AudioSource.PlayClipAtPoint(attackSound, transform.position);
         attackTimer = attackCooldown;
         return true;
     }

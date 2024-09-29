@@ -15,6 +15,8 @@ public class SpiritSeparator : Interactable
     public Sprite chargeSprite;
     public Sprite activateSprite;
     public GameObject outputDuct;
+    public AudioClip activateSound;
+    public AudioClip splitSound;
     private SpriteRenderer spriteRenderer;
     
     protected override void Awake()
@@ -61,6 +63,7 @@ public class SpiritSeparator : Interactable
     {
         if (used) return;
         CameraSystem cameraSystem = Camera.main.GetComponent<CameraSystem>();
+        AudioSource.PlayClipAtPoint(splitSound, transform.position);
         cameraSystem.PlaySplitAnimation();
         
         CanPlayerInteract = false;
@@ -74,6 +77,7 @@ public class SpiritSeparator : Interactable
         {
             lever.CanPlayerInteract = false;
         }
+        AudioSource.PlayClipAtPoint(activateSound, transform.position);
         CanPlayerInteract = true;
         spriteRenderer.sprite = chargeSprite;
     }

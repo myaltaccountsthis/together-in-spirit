@@ -154,3 +154,4 @@ MonoBehaviour:
       m_Calls: []
   activeSprite: {fileID: 21300000, guid: d428db2004d883b46b79694d031a6da8, type: 3}
   inactiveSprite: {fileID: 21300000, guid: 789c5d12b1f44ed45a7dd8d0507c0506, type: 3}
+  flipSound: {fileID: 8300000, guid: 93bfe8c684c1ef34c83a80fe120eba66, type: 3}

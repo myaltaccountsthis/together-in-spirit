@@ -10,6 +10,7 @@ public class Saw : Killbrick
     protected override void Awake()
     {
         base.Awake();
+        
         transform.position = startRight ? rightPos.position : leftPos.position;
         LeanTween
             .move(gameObject, startRight ? leftPos : rightPos, oscillationTime)

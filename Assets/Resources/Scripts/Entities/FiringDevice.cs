@@ -9,6 +9,7 @@ public class FiringDevice : Entity
     public float delay;
     public bool isHoming;
     public User homingTarget;
+    public AudioSource fireSound;
     
     [SerializeField] private Sprite inactiveSprite;
     [SerializeField] private Sprite readySprite;
@@ -44,6 +45,9 @@ public class FiringDevice : Entity
             projectilePrefab.homingTarget = homingTarget;
             projectilePrefab.direction = fixedDirection;
             Projectile proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            AudioSource audio = Instantiate(fireSound, transform.position, Quaternion.identity);
+            audio.Play();
+            Destroy(audio.gameObject, audio.clip.length);
             spriteRenderer.sprite = shootingSprite;
             yield return new WaitForSeconds(delay / 2);
             spriteRenderer.sprite = normalSprite;
