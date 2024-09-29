@@ -399,6 +399,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &41514233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 41514234}
+  m_Layer: 0
+  m_Name: LightWall (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &41514234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41514233}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.5, y: 4.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1354798771}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &47703960
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -812,7 +843,7 @@ Transform:
   m_GameObject: {fileID: 81602384}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.5, y: -0.5, z: 0}
+  m_LocalPosition: {x: 3.5, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5452,11 +5483,6 @@ Transform:
   - {fileID: 164263401}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &437541748 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 686773134999478261, guid: 5ad25ad2a6c607847a9e6cf93b2a8c9b, type: 3}
-  m_PrefabInstance: {fileID: 1165604969}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &447146535
 GameObject:
   m_ObjectHideFlags: 0
@@ -8410,7 +8436,7 @@ Transform:
   m_GameObject: {fileID: 1147251826}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.5, y: 2.5, z: 0}
+  m_LocalPosition: {x: 3.5, y: 4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8668,7 +8694,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042032151944907146, guid: 5ad25ad2a6c607847a9e6cf93b2a8c9b, type: 3}
       propertyPath: enable.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2042032151944907146, guid: 5ad25ad2a6c607847a9e6cf93b2a8c9b, type: 3}
       propertyPath: disable.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -8681,7 +8707,7 @@ PrefabInstance:
     - target: {fileID: 2042032151944907146, guid: 5ad25ad2a6c607847a9e6cf93b2a8c9b, type: 3}
       propertyPath: enable.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 437541748}
+      objectReference: {fileID: 1165604971}
     - target: {fileID: 2042032151944907146, guid: 5ad25ad2a6c607847a9e6cf93b2a8c9b, type: 3}
       propertyPath: disable.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -8704,7 +8730,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042032151944907146, guid: 5ad25ad2a6c607847a9e6cf93b2a8c9b, type: 3}
       propertyPath: enable.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetActive
+      value: Unbind
       objectReference: {fileID: 0}
     - target: {fileID: 2042032151944907146, guid: 5ad25ad2a6c607847a9e6cf93b2a8c9b, type: 3}
       propertyPath: disable.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -8716,7 +8742,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042032151944907146, guid: 5ad25ad2a6c607847a9e6cf93b2a8c9b, type: 3}
       propertyPath: enable.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: Lever, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2042032151944907146, guid: 5ad25ad2a6c607847a9e6cf93b2a8c9b, type: 3}
       propertyPath: disable.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -8788,6 +8814,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3164910668860171111, guid: 5ad25ad2a6c607847a9e6cf93b2a8c9b, type: 3}
   m_PrefabInstance: {fileID: 1165604969}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1165604971 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2042032151944907146, guid: 5ad25ad2a6c607847a9e6cf93b2a8c9b, type: 3}
+  m_PrefabInstance: {fileID: 1165604969}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d69f87b20957249984c89c4c37eede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1167327789
 GameObject:
   m_ObjectHideFlags: 0
@@ -8897,7 +8934,7 @@ Transform:
   m_GameObject: {fileID: 1173762869}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.5, y: 3.5, z: 0}
+  m_LocalPosition: {x: 4.5, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9670,6 +9707,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 81602385}
+  - {fileID: 41514234}
   - {fileID: 1147251827}
   - {fileID: 1173762870}
   m_Father: {fileID: 1413180452}
@@ -22144,14 +22182,6 @@ PrefabInstance:
       value: Mirror
       objectReference: {fileID: 0}
     - target: {fileID: 3030272660432027863, guid: 7d100e009a21c114581e6aaa22b8bb5f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3030272660432027863, guid: 7d100e009a21c114581e6aaa22b8bb5f, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3030272660432027863, guid: 7d100e009a21c114581e6aaa22b8bb5f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.5
       objectReference: {fileID: 0}
@@ -23223,7 +23253,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.2}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.3
 --- !u!1001 &7614185454773763087
 PrefabInstance:
   m_ObjectHideFlags: 0
