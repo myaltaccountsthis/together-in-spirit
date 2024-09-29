@@ -1,7 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -11,6 +11,7 @@ public class EnemySpawner : MonoBehaviour
     private int[][] spawnCount;
     [SerializeField] private int waveInterval;
     [SerializeField] private Vector2[] spawnLocations;
+    [SerializeField] private UnityEvent onSpawn;
     private Collider2D activationArea;
     private int currentWave;
     private int waveCount;
@@ -66,6 +67,8 @@ public class EnemySpawner : MonoBehaviour
                 enemies.Add(enemy);
             }
         }
+
+        onSpawn.Invoke();
         currentWave++;
         intervalTimer = waveInterval;
     }
