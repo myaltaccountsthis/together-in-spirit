@@ -64,4 +64,9 @@ public class Spirit : User
         newAttack.transform.localPosition = transform.position + new Vector3(Mathf.Cos(lastAngle), Mathf.Sin(lastAngle), 0) * newAttack.getDistanceOffset();
         return true;
     }
+
+    public void ShowAttackInstructions()
+    {
+        dialogueManager.Show(new Dialogue("What is that thing?", new string[]{"Your spirit can use the right shift key to fire a ranged attack. Your player can also do a slash attack with Q"}));
+    }
 }
