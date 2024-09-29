@@ -107,6 +107,7 @@ public class DialogueManager : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         // Don't register click if not active or if on debounce cooldown
+        Debug.Log("clicked");
         if (!active || debounce)
             return;
         if (IsTypewriterFinished())

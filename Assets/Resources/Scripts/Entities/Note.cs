@@ -14,6 +14,6 @@ public class Note : Interactable
 
     public override void Interact(User user)
     {
-        Debug.Log(message);
+        user.dialogueManager.Show(new Dialogue("Old Note", new[]{message}));
     }
 }

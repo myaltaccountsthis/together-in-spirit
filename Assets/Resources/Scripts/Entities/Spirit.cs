@@ -34,7 +34,7 @@ public class Spirit : User
         }
         base.FixedUpdate();
         Vector2 myPosition = transform.position;
-        Vector2 movement = new(Input.GetAxis("SpiritHorizontal"), Input.GetAxis("SpiritVertical"));
+        Vector2 movement = new(Input.GetAxis("SpiritHorizontal"), Input.GetAxis("SpiritVertical")); 
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         if (movement.magnitude > 1)

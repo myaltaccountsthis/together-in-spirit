@@ -30,11 +30,13 @@ public abstract class User : LivingEntity
         }
     } }
     protected float lastAngle;
+    public DialogueManager dialogueManager;
     public AudioSource damageSound;
     
     protected override void Awake()
     {
         base.Awake();
+        dialogueManager.gameObject.SetActive(true);
         interactOpenPosition = interactUI.anchoredPosition;
         interactClosedPosition = new Vector2(interactOpenPosition.x, -interactUI.sizeDelta.y - interactOpenPosition.y - 10);
         cameraSystem = Camera.main.GetComponent<CameraSystem>();

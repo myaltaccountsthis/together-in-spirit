@@ -12,14 +12,12 @@ public class Player : User
     [SerializeField] private PlayerAttack attackHitbox;
 
     // Important component references
-    public DialogueManager dialogueManager;
     public Spirit spirit;
     public DataManager dataManager;
     private Animator animator;
 
     protected override void Awake() {
         base.Awake();
-        dialogueManager.gameObject.SetActive(true);
         animator = GetComponent<Animator>();
     }
 
