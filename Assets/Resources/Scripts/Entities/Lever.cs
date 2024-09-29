@@ -39,4 +39,10 @@ public class Lever : Interactable
         }
         UpdateSprite();
     }
+
+    public void Unbind()
+    {
+        CanPlayerInteract = false;
+        CanSpiritInteract = false;
+    }
 }
