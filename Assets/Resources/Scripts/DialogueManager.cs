@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class Dialogue {
     public string header;
@@ -123,6 +124,15 @@ public class DialogueManager : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        SpeedUp();
+    }
+
+    public void OnKeyboardInput(InputAction.CallbackContext context) {
+        if (context.performed)
+            SpeedUp();
+    }
+
+    public void SpeedUp() {
         // Don't register click if not active or if on debounce cooldown
         if (!active || debounce)
             return;
