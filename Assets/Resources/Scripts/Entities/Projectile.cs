@@ -7,7 +7,7 @@ public class Projectile : Interactable
     public float speed;
     public Vector2 direction;
     public float lifeTime;
-    public float damage;
+    public int damage;
     public bool isHoming;
     public float homingStrength;
     public float rotationOffset;
@@ -33,10 +33,18 @@ public class Projectile : Interactable
         transform.Translate(direction * (speed * Time.deltaTime), Space.World);
     }
 
+    protected override void OnTriggerEnter2D(Collider2D other)
+    {
+        base.OnTriggerEnter2D(other);
+        if (other.TryGetComponent(out User user))
+        {
+            user.TakeDamage(damage);
+        }
+        Destroy(gameObject);
+    }
+
     public override void Interact(User user)
     {
-        // Edit with damage
-        user.Die();
-        Destroy(gameObject);
+
     }
 }

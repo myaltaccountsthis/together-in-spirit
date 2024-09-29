@@ -188,9 +188,9 @@ public class CameraSystem : MonoBehaviour
 
     public void PlayDeathAnimation() {
         if (player.Health > 0)
-            player.TakeDamage(int.MaxValue);
+            player.TakeDamage(int.MaxValue / 2);
         if (spirit.Health > 0)
-            spirit.TakeDamage(int.MaxValue);
+            spirit.TakeDamage(int.MaxValue / 2);
 
         InDeathAnimation = true;
         player.dataManager.currentData.score -= 100;
