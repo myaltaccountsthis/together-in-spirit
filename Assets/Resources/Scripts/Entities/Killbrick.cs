@@ -6,6 +6,6 @@ public class Killbrick : Interactable
 {
     public override void Interact(User user)
     {
-        user.Die();
+        user.TakeDamage(1000);
     }
 }

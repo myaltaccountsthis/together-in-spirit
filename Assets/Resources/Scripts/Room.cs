@@ -35,6 +35,9 @@ public class Room : MonoBehaviour
         foreach (GameObject child in children) {
             Instantiate(child, child.transform.position, Quaternion.identity, shouldResetChildren).SetActive(true);
         }
+        CameraSystem cameraSystem = Camera.main.GetComponent<CameraSystem>();
+        cameraSystem.player.Respawn();
+        cameraSystem.spirit.Respawn();
     }
 
     void Start() {

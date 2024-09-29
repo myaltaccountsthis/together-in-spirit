@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BossKeySystem : MonoBehaviour
 {
+    private const float INITIAL_DELAY = 5f;
     private static readonly Key[] keys = new Key[] { Key.LeftArrow, Key.UpArrow, Key.DownArrow, Key.RightArrow };
     
     public Spirit spirit;
@@ -27,7 +28,7 @@ public class BossKeySystem : MonoBehaviour
     void Start() {
         successfulInputs = 0;
         wrongInputs = 0;
-        timeUntilNextKeys = 5f;
+        timeUntilNextKeys = INITIAL_DELAY;
         timeToEnterKeys = 0;
         bossKeys = new();
     }
@@ -81,7 +82,7 @@ public class BossKeySystem : MonoBehaviour
     }
 
     private float GetTimeToEnterKeys() {
-        return Mathf.Max(bossKeys.Count * 1f - successfulInputs * .5f, 3f);
+        return Mathf.Max(bossKeys.Count * 1f - successfulInputs * .5f, 2f + bossKeys.Count * .25f);
     }
 
     private int GetKeyCount() {

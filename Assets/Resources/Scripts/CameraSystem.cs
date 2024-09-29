@@ -10,6 +10,7 @@ public class CameraSystem : MonoBehaviour
     // Note that camera.orthographicSize is the half-size of vertical axis
     // so these are in units of half-size
     private const float MIN_SIZE = 2.5f, MAX_SIZE = 8f;
+    private const float BOSS_FIGHT_SIZE = 19f;
     private const float PADDING = 3f;
     private const float TRAP_ANIMATION_SPIRIT_RADIUS = 3f;
 
@@ -25,6 +26,7 @@ public class CameraSystem : MonoBehaviour
     private PostProcessVolume volume;
     private bool cutsceneMode;
     public bool InDeathAnimation { get; private set; }
+    public bool InBossFight = false;
 
     void Awake() {
         camera = Camera.main;
@@ -62,9 +64,14 @@ public class CameraSystem : MonoBehaviour
         }
         Vector2 size = new(Mathf.Abs(playerPos.x - spiritPos.x) + PADDING, Mathf.Abs(playerPos.y - spiritPos.y) + PADDING);
         Vector2 position = (playerPos + spiritPos) / 2f;
+        if (InBossFight) {
+            size.x = MathF.Max(size.x, BOSS_FIGHT_SIZE);
+            // hardcoded ahh magic numbers
+            position.x = -.5f;
+        }
         float scale = Mathf.Max(size.x / camera.aspect, size.y) / 2f;
-        float targetSize = Mathf.Clamp(scale, MIN_SIZE, MAX_SIZE);
-        if (scale > MAX_SIZE) {
+        float targetSize = Mathf.Clamp(scale, MIN_SIZE, InBossFight ? BOSS_FIGHT_SIZE : MAX_SIZE);
+        if (scale > MAX_SIZE && !InBossFight) {
             Vector2 offset = new(
                 -Mathf.Max(0, position.x - MAX_SIZE * camera.aspect - (playerPos.x - PADDING / 2f)) + Mathf.Max(0, playerPos.x + PADDING / 2f - (position.x + MAX_SIZE * camera.aspect)),
                 -Mathf.Max(0, position.y - MAX_SIZE - (playerPos.y - PADDING / 2f)) + Mathf.Max(0, playerPos.y + PADDING / 2f - (position.y + MAX_SIZE))
@@ -102,14 +109,14 @@ public class CameraSystem : MonoBehaviour
     }
 
     private Vector3 GetSpiritOffsetTrapAnimation(float alpha) {
-        float radius = LeanTween.linear(TRAP_ANIMATION_SPIRIT_RADIUS, 0, Mathf.Abs(alpha - .5f) * 2f);
-        if (alpha < .5f)
-            radius = LeanTween.linear(0, TRAP_ANIMATION_SPIRIT_RADIUS, alpha * 2f);
-        float angle = Mathf.PI * 2f / (1.5f - alpha) * alpha * 1.5f;
+        float radius = LeanTween.linear(TRAP_ANIMATION_SPIRIT_RADIUS, 0, Mathf.Abs(alpha - .7f) / .3f);
+        if (alpha < .7f)
+            radius = LeanTween.linear(0, TRAP_ANIMATION_SPIRIT_RADIUS, alpha / .7f);
+        float angle = Mathf.PI * 2f / (1.5f - alpha) * alpha * 2f;
         return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
     }
 
-    public IEnumerator StartTrapSpiritAnimation() {
+    public IEnumerator StartTrapSpiritAnimation(Action callback) {
         BeginCutscene();
         // Do cutscene
         // Start with dip to black
@@ -131,7 +138,7 @@ public class CameraSystem : MonoBehaviour
         // Tween the spirit into the machine
         Vector3 spiritStartPos = spirit.transform.position, spiritTargetPos = bossMachine.position;
         t = 0f;
-        duration = (spiritTargetPos - spiritStartPos).magnitude / 2f + 2f;
+        duration = Mathf.Sqrt((spiritTargetPos - spiritStartPos).magnitude) + 2f;
         targetColor = Color.white;
         cover.color = startColor;
         while (t < duration) {
@@ -155,6 +162,27 @@ public class CameraSystem : MonoBehaviour
         yield return new WaitForSeconds(duration);
         cover.enabled = false;
 
+        EndCutscene();
+        callback();
+    }
+
+    public void PlayDipToBlack(Action callback) {
+        StartCoroutine(DipToBlackCoroutine(callback));
+    }
+
+    private IEnumerator DipToBlackCoroutine(Action callback) {
+        BeginCutscene();
+        Color startColor = Color.clear, targetColor = Color.black;
+        cover.color = startColor;
+        cover.enabled = true;
+        float duration = 1.25f;
+        LeanTween.color(cover.rectTransform, targetColor, duration).setEaseOutQuad();
+        yield return new WaitForSeconds(duration + .5f);
+        // Do callback and reposition camera
+        callback();
+        ForceReposition();
+        LeanTween.color(cover.rectTransform, startColor, duration).setEaseInQuad();
+        yield return new WaitForSeconds(duration);
         EndCutscene();
     }
 
@@ -195,8 +223,6 @@ public class CameraSystem : MonoBehaviour
         currentRoom.Activate();
         player.transform.position = currentRoom.spawnLocation.transform.position;
         spirit.transform.position = currentRoom.spiritSpawnLocation.transform.position;
-        player.Respawn();
-        spirit.Respawn();
         ForceReposition();
         // Wait and tween to transparent
         yield return new WaitForSeconds(1);
