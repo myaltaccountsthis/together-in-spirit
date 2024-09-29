@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3050432771357520816}
   - component: {fileID: 5969591281636752806}
   - component: {fileID: 8425176657946895510}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,11 @@ MonoBehaviour:
   CanPlayerInteract: 0
   CanSpiritInteract: 1
   AutoInteract: 0
-  doors:
-  - {fileID: 0}
+  enable:
+    m_PersistentCalls:
+      m_Calls: []
+  disable:
+    m_PersistentCalls:
+      m_Calls: []
   activeSprite: {fileID: 21300000, guid: 1cad040b69a69364f89ac4ff70c9a252, type: 3}
   inactiveSprite: {fileID: 21300000, guid: 14a25a8b51c2c2d42b37b2a28fa640f8, type: 3}
