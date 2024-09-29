@@ -17,6 +17,7 @@ public class CameraSystem : MonoBehaviour
     public Spirit spirit;
     public Transform bossMachine;
     public Image cover;
+    public Room currentRoom;
 
     public bool IsAlive => player.Health > 0 && spirit.Health > 0;
 
@@ -27,18 +28,20 @@ public class CameraSystem : MonoBehaviour
 
     void Awake() {
         camera = Camera.main;
-        camera.orthographicSize = MIN_SIZE;
         volume = GetComponent<PostProcessVolume>();
     }
 
     void Start() {
         cutsceneMode = false;
+        ForceReposition();
     }
 
     void Update() {
         if (cutsceneMode)
             return;
         UpdateCamera();
+        if (currentRoom.index == 0 && spirit.gameObject.activeSelf)
+            spirit.gameObject.SetActive(false);
     }
 
     public void FlashVignette() {
@@ -46,20 +49,21 @@ public class CameraSystem : MonoBehaviour
         LeanTween.value(volume.gameObject, value => volume.weight = value, 1, 0, .6f).setEaseOutSine();
     }
 
-    private void UpdateCamera() {
+    private void ForceReposition() {
+        (Vector2 position, float targetSize) = GetCameraTargetPositionScale();
+        camera.transform.position = new Vector3(position.x, position.y, camera.transform.position.z);
+        camera.orthographicSize = targetSize;
+    }
+
+    private (Vector2, float) GetCameraTargetPositionScale() {
         Vector2 playerPos = player.transform.position, spiritPos = spirit.transform.position;
         if (!spirit.gameObject.activeSelf) {
             spiritPos = playerPos;
         }
         Vector2 size = new(Mathf.Abs(playerPos.x - spiritPos.x) + PADDING, Mathf.Abs(playerPos.y - spiritPos.y) + PADDING);
         Vector2 position = (playerPos + spiritPos) / 2f;
-        float targetSize = Mathf.Clamp(Mathf.Max(size.x / camera.aspect, size.y) / 2f, MIN_SIZE, MAX_SIZE);
-        float mySize = camera.orthographicSize;
-        float distance = targetSize - mySize;
-        float delta = Mathf.Sign(distance) * (Mathf.Abs(distance) * 3f + .25f) * Time.deltaTime;
-        float scale = Mathf.Max(size.x / camera.aspect, size.y) / 2;
-        if (Mathf.Abs(delta) > Mathf.Abs(distance))
-            delta = distance;
+        float scale = Mathf.Max(size.x / camera.aspect, size.y) / 2f;
+        float targetSize = Mathf.Clamp(scale, MIN_SIZE, MAX_SIZE);
         if (scale > MAX_SIZE) {
             Vector2 offset = new(
                 -Mathf.Max(0, position.x - MAX_SIZE * camera.aspect - (playerPos.x - PADDING / 2f)) + Mathf.Max(0, playerPos.x + PADDING / 2f - (position.x + MAX_SIZE * camera.aspect)),
@@ -67,12 +71,22 @@ public class CameraSystem : MonoBehaviour
             );
             position += offset;
         }
+        return (position, targetSize);
+    }
+
+    private void UpdateCamera() {
+        (Vector2 position, float targetSize) = GetCameraTargetPositionScale();
+        float mySize = camera.orthographicSize;
+        float distance = targetSize - mySize;
+        float delta = Mathf.Sign(distance) * (Mathf.Abs(distance) * 3f + .25f) * Time.deltaTime;
+        if (Mathf.Abs(delta) > Mathf.Abs(distance))
+            delta = distance;
         Vector2 posDistance = position - (Vector2)transform.position;
-        Vector2 posDelta = posDistance.normalized * (posDistance.magnitude * 10f + .25f) * Time.deltaTime;
+        Vector2 posDelta = (posDistance.magnitude * 10f + .25f) * Time.deltaTime * posDistance.normalized;
         if (posDelta.magnitude > posDistance.magnitude)
             posDelta = posDistance;
         camera.orthographicSize += delta;
-        camera.transform.position += new Vector3(posDelta.x, posDelta.y, 0);
+        camera.transform.position += (Vector3)posDelta;
     }
 
     public void BeginCutscene() {
@@ -178,11 +192,12 @@ public class CameraSystem : MonoBehaviour
         }
         cover.color = endColor;
         // Do respawn functionality
-        Debug.LogWarning("IMPLEMENT ROOM RESPAWN");
-        // currentRoom.Activate();
-        // transform.position = currentRoom.spawnLocation.position;
+        currentRoom.Activate();
+        player.transform.position = currentRoom.spawnLocation.transform.position;
+        spirit.transform.position = currentRoom.spiritSpawnLocation.transform.position;
         player.Respawn();
         spirit.Respawn();
+        ForceReposition();
         // Wait and tween to transparent
         yield return new WaitForSeconds(1);
         Color transparent = new(0, 0, 0, 0);

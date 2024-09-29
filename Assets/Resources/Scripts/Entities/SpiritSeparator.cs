@@ -58,18 +58,14 @@ public class SpiritSeparator : Interactable
         Player player = (Player)user;
         Spirit spirit = player.spirit;
         spirit.transform.position = player.transform.position;
-        LeanTween.move(spirit.gameObject, player.transform.position + splitOffset, splitTime)
-            .setEaseLinear();
+        spirit.CanMove = false;
+        LeanTween.move(spirit.gameObject, player.transform.position + splitOffset, splitTime).setEaseLinear().setOnComplete(() => {
+            spirit.CanMove = true;
+            user.dialogueManager.Show(new Dialogue("Yikes", new []{"The old machine you were investigating just separated your spirit from your body.", "Maybe your spirit can help you reach the rest of the mansion.", "Control your spirit with the arrow keys."}));
+        });
         spirit.gameObject.SetActive(true);
         CanPlayerInteract = false;
         used = true;
-        StartCoroutine(DisplaySplitInfo(user));
-    }
-
-    IEnumerator DisplaySplitInfo(User user)
-    {
-        yield return new WaitForSeconds(splitTime);
-        user.dialogueManager.Show(new Dialogue("Yikes", new []{"The old machine you were investigating just separated your spirit from your body.", "Maybe your spirit can help you reach the rest of the mansion.", "Control your spirit with the arrow keys."}));
     }
     
     public void Activate()
@@ -82,7 +78,7 @@ public class SpiritSeparator : Interactable
         CanPlayerInteract = true;
     }
     
-    private string[][] messages = new string[6][]
+    private static readonly string[][] messages = new string[6][]
     {
         new string[] 
         {

@@ -30,6 +30,8 @@ public class HealthBar : MonoBehaviour
     }
 
     void Update() {
+        if (transform == null || attachment == null)
+            return;
         transform.position = attachment.position + .5f * scale * Vector3.up;
     }
     
