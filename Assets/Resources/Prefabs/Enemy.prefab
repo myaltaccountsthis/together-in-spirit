@@ -163,6 +163,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 10
+  damageSound: {fileID: 8300000, guid: 9cce61085f3dc7d40927fecef36075ba, type: 3}
+  deathSound: {fileID: 8300000, guid: c28457720446ec841a642e2fe25e592c, type: 3}
   healthBarScale: 1
   damage: 10
   speed: 1.5

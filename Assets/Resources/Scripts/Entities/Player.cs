@@ -14,6 +14,9 @@ public class Player : User
     // Important component references
     public Spirit spirit;
     public DataManager dataManager;
+    public AudioClip walkingSound;
+    public float walkingSoundCooldown;
+    private float tempCooldown = 0;
 
     protected override void Awake() {
         base.Awake();
@@ -35,7 +38,20 @@ public class Player : User
         if (movement.magnitude > 1)
             movement.Normalize();
         if (movement.magnitude > 0)
+        {
             lastAngle = Mathf.Deg2Rad * Vector2.SignedAngle(new Vector2(1, 0), movement);
+            tempCooldown -= Time.deltaTime;
+            if (tempCooldown < 0)
+            {
+                AudioSource.PlayClipAtPoint(walkingSound, transform.position);
+                tempCooldown = walkingSoundCooldown;
+            }
+        }
+        else
+        {
+            tempCooldown = 0;
+        }
+
         rigidbody.position = myPosition + MOVE_SPEED * Time.deltaTime * new Vector2(movement.x, movement.y);
     }
 

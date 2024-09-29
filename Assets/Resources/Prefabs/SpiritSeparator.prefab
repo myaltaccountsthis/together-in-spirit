@@ -49,8 +49,6 @@ MonoBehaviour:
   CanPlayerInteract: 0
   CanSpiritInteract: 0
   AutoInteract: 0
-  splitOffset: {x: 1.5, y: 0, z: 0}
-  splitTime: 2
   levers:
   - {fileID: 0}
   - {fileID: 0}
@@ -65,8 +63,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  normalSprite: {fileID: 0}
   chargeSprite: {fileID: 0}
   activateSprite: {fileID: 0}
+  outputDuct: {fileID: 0}
+  activateSound: {fileID: 8300000, guid: 406e2c99c81315741bf8f7a4cb59130c, type: 3}
+  splitSound: {fileID: 8300000, guid: 4a87914498a7af943ab974c412a3b9d9, type: 3}
 --- !u!212 &2620229225491584146
 SpriteRenderer:
   m_ObjectHideFlags: 0
