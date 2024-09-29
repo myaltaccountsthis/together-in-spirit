@@ -45,9 +45,9 @@ public class FiringDevice : Entity
             projectilePrefab.direction = fixedDirection;
             Projectile proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             spriteRenderer.sprite = shootingSprite;
-            yield return new WaitForSeconds(delay / 4);
-            spriteRenderer.sprite = normalSprite;
             yield return new WaitForSeconds(delay / 2);
+            spriteRenderer.sprite = normalSprite;
+            yield return new WaitForSeconds(delay / 4);
         }
     }
 
