@@ -12,7 +12,7 @@ public class Mirror : Interactable
     /// </summary>
     public bool Rotated { get => rotatedInternal; private set {
         rotatedInternal = value;
-        spriteRenderer.flipX = value;
+        spriteRenderer.flipX = !value;
     } }
     // Might just set this with a function in LineReflector to avoid 2 references
     [HideInInspector] public MirrorLevel lineReflector;
@@ -26,7 +26,7 @@ public class Mirror : Interactable
     protected override void Start()
     {
         base.Start();
-        Rotated = false;
+        Rotated = Random.value > .5f;
     }
 
     public override void Interact(User user)

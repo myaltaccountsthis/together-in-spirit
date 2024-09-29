@@ -33,8 +33,8 @@ public abstract class LivingEntity : Entity
         healthBar.gameObject.SetActive(true);
         if (Health <= 0)
         {
-            Die();
             Health = -1;
+            Die();
         }
     }
 
