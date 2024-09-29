@@ -17,6 +17,9 @@ public class MirrorLevel : MonoBehaviour
     private bool[,] impasssable;
     private Vector3Int bottomLeft, topRight;
     private Vector3Int boundsSize;
+    [SerializeField] private Sprite endActiveSprite;
+    [SerializeField] private Sprite endInactiveSprite;
+    [SerializeField] private SpriteRenderer endSpriteRenderer;
 
     private Vector3Int Vector3ToVector3IntFloored(Vector3 vector) {
         return new(Mathf.RoundToInt(vector.x - .5f), Mathf.RoundToInt(vector.y - .5f));
@@ -89,6 +92,7 @@ public class MirrorLevel : MonoBehaviour
         while (InBounds(prevPoint) && !impasssable[prevPoint.x, prevPoint.y]) {
             if (prevPoint.Equals(target)) {
                 reachedTarget = true;
+                endSpriteRenderer.sprite = endActiveSprite;
                 break;
             }
             Mirror mirror = mirrorMatrix[prevPoint.x, prevPoint.y];
@@ -105,5 +109,7 @@ public class MirrorLevel : MonoBehaviour
         lineRenderer.SetPositions(points);
         collider.SetPoints(pointsList);
         wall.SetActive(!reachedTarget);
+        if (!reachedTarget)
+            endSpriteRenderer.sprite = endInactiveSprite;
     }
 }
