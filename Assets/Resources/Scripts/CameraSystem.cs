@@ -17,6 +17,7 @@ public class CameraSystem : MonoBehaviour
     public Player player;
     public Spirit spirit;
     public Transform bossMachine;
+    public SpiritSeparator spiritSeparator;
     public Image cover;
     public Room currentRoom;
 
@@ -238,4 +239,38 @@ public class CameraSystem : MonoBehaviour
         cover.enabled = false;
         EndCutscene();
     }
+
+    public void PlaySplitAnimation() {
+        StartCoroutine(SplitAnimationCoroutine());
+    }
+
+    private IEnumerator SplitAnimationCoroutine() {
+        BeginCutscene();
+        float duration = 2f;
+        SpriteRenderer spriteRenderer = spiritSeparator.GetComponent<SpriteRenderer>();
+
+        LeanTween.move(player.gameObject, spiritSeparator.transform.position, duration).setEaseOutQuad();
+        yield return new WaitForSeconds(duration);
+        spirit.transform.position = player.transform.position;
+        spirit.gameObject.SetActive(true);
+        spriteRenderer.sprite = spiritSeparator.activateSprite;
+
+        duration = 1f;
+        LeanTween.alpha(player.gameObject, .3f, duration);
+        yield return new WaitForSeconds(duration);
+
+        LeanTween.alpha(spirit.gameObject, 0, duration);
+        yield return new WaitForSeconds(duration + 1);
+
+        spirit.transform.position = spiritSeparator.outputDuct.transform.position;
+        LeanTween.alpha(spirit.gameObject, 1, duration);
+        LeanTween.alpha(player.gameObject, 1, duration);
+        yield return new WaitForSeconds(duration + 1);
+
+        spriteRenderer.sprite = spiritSeparator.normalSprite;
+        spirit.CanMove = true;
+        player.dialogueManager.Show(new Dialogue("Yikes", new []{"The old machine you were investigating just separated your spirit from your body.", "Maybe your spirit can help you reach the rest of the mansion.", "Control your spirit with the arrow keys."}));
+        EndCutscene();
+    }
+
 }
