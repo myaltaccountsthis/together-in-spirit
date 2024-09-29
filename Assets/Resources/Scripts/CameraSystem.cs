@@ -9,7 +9,7 @@ public class CameraSystem : MonoBehaviour
 {
     // Note that camera.orthographicSize is the half-size of vertical axis
     // so these are in units of half-size
-    private const float MIN_SIZE = 3f, MAX_SIZE = 8f;
+    private const float MIN_SIZE = 2.5f, MAX_SIZE = 8f;
     private const float PADDING = 3f;
     private const float TRAP_ANIMATION_SPIRIT_RADIUS = 3f;
 

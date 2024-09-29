@@ -26,22 +26,22 @@ public class SpiritSeparator : Interactable
             int bit = 1 << i;
             levers[i].CanPlayerInteract = true;
             levers[i].CanSpiritInteract = false;
-            levers[i].enable = () =>
+            levers[i].enable.AddListener(() => 
             {
                 curr |= bit;
                 if (curr == answer)
                 {
                     Activate();
                 }
-            };
-            levers[i].disable = () =>
+            });
+            levers[i].disable.AddListener(() =>
             {
                 curr &= ~bit;
                 if (curr == answer)
                 {
                     Activate();
                 }
-            };
+            });
             Note temp = notes[i];
             int r = Random.Range(i, notes.Length);
             notes[i] = notes[r];
