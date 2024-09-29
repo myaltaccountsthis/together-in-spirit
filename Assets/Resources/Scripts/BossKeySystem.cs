@@ -27,8 +27,9 @@ public class BossKeySystem : MonoBehaviour
     void Start() {
         successfulInputs = 0;
         wrongInputs = 0;
-        timeUntilNextKeys = 0;
+        timeUntilNextKeys = 5f;
         timeToEnterKeys = 0;
+        bossKeys = new();
     }
     
     void Update() {
@@ -58,6 +59,10 @@ public class BossKeySystem : MonoBehaviour
                 }
             }
         }
+    }
+
+    void OnDestroy() {
+        Hide();
     }
 
     private void OnFail() {

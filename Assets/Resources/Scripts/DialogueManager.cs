@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class Dialogue {
@@ -18,6 +19,8 @@ public class DialogueManager : MonoBehaviour, IPointerClickHandler
     private const float TWEEN_DURATION = .5f;
     private const float TYPEWRITER_DELAY = .05f;
 
+    public UnityEvent onDialogueBegin, onDialogueEnd;
+    public bool IsActive => active;
     private RectTransform rectTransform, inner;
     private TextMeshProUGUI header, body, arrow;
     private Dialogue currentDialogue;
@@ -82,6 +85,7 @@ public class DialogueManager : MonoBehaviour, IPointerClickHandler
         body.text = "";
         arrow.text = "";
         dialogueIndex = 0;
+        onDialogueBegin.Invoke();
         LeanTween.move(rectTransform, openPosition, TWEEN_DURATION).setEaseOutQuad().setOnComplete(() => {
             UpdateBody();
             debounce = false;
@@ -98,6 +102,7 @@ public class DialogueManager : MonoBehaviour, IPointerClickHandler
 
     public void Hide() {
         debounce = true;
+        onDialogueEnd.Invoke();
         LeanTween.move(rectTransform, closedPosition, TWEEN_DURATION).setEaseOutQuad().setOnComplete(() => {
             active = false;
             debounce = false;

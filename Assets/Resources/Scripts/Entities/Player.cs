@@ -18,6 +18,7 @@ public class Player : User
     protected override void Awake() {
         base.Awake();
         dialogueManager.gameObject.SetActive(true);
+        transform.position = cameraSystem.currentRoom.spawnLocation.position;
     }
 
     protected override void FixedUpdate() {

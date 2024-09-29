@@ -42,6 +42,13 @@ public abstract class User : LivingEntity
         interactClosedPosition = new Vector2(interactOpenPosition.x, -interactUI.sizeDelta.y - interactOpenPosition.y - 10);
         cameraSystem = Camera.main.GetComponent<CameraSystem>();
         animator = GetComponent<Animator>();
+        dialogueManager.onDialogueBegin.AddListener(() => {
+            HideInteract();
+        });
+        dialogueManager.onDialogueEnd.AddListener(() => {
+            if (currentInteractables.Count > 0)
+                ShowInteract();
+        });
         attackTimer = 0;
         lastAngle = 0;
     }
@@ -70,8 +77,17 @@ public abstract class User : LivingEntity
             if (!CanMove)
                 return;
             currentInteractables.Add(interactable);
-            if (currentInteractables.Count == 1)
+            if (!dialogueManager.IsActive && currentInteractables.Count == 1)
                 ShowInteract();
+        }
+        else if (other.TryGetComponent(out Room room)) {
+            // Try to enter a new room (don't reactivate previous rooms)
+            if (!room.visited) {
+                room.Activate();
+                room.visited = true;
+                if (cameraSystem.currentRoom == null || room.index > cameraSystem.currentRoom.index)
+                    cameraSystem.currentRoom = room;
+            }
         }
     }
     protected override void OnTriggerExit2D(Collider2D other)

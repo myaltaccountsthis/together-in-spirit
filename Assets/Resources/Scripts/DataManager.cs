@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public struct Data {
@@ -39,6 +40,13 @@ public class DataManager : MonoBehaviour
             roomIndex = 0,
             score = 0
         };
+    }
+
+    public void EnterGame(InputAction.CallbackContext context) {
+        if (!context.performed)
+            return;
+        currentData = GetDefaultData();
+        SwitchScene("Main");
     }
 
     public void SwitchScene(string sceneName) {

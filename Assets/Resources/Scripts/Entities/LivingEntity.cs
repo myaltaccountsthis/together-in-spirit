@@ -21,6 +21,9 @@ public abstract class LivingEntity : Entity
     protected override void Start()
     {
         base.Start();
+        healthBar = Instantiate(Resources.Load<HealthBar>("Prefabs/HealthBar"), GameObject.Find("WorldCanvas").transform);
+        healthBar.attachment = transform;
+        healthBar.scale = healthBarScale;
         Respawn();
     }
 
@@ -38,14 +41,14 @@ public abstract class LivingEntity : Entity
         }
     }
 
-    public virtual void Die() {
-        Destroy(healthBar.gameObject);
+    public virtual void Die() {}
+
+    void OnDestroy() {
+        if (healthBar != null)
+            Destroy(healthBar.gameObject);
     }
 
     public virtual void Respawn() {
-        healthBar = Instantiate(Resources.Load<HealthBar>("Prefabs/HealthBar"), GameObject.Find("WorldCanvas").transform);
-        healthBar.attachment = transform;
-        healthBar.scale = healthBarScale;
         healthBar.gameObject.SetActive(false);
         Health = MaxHealth;
         healthBar.Health = 1f;

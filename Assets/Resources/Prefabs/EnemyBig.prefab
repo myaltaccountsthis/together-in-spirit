@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1724577875
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: ff4dc17416cfb1442895a19404ccb05f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -167,8 +167,6 @@ MonoBehaviour:
   damage: 25
   speed: 1
   score: 150
-  player: {fileID: 0}
-  spirit: {fileID: 0}
 --- !u!95 &2844661508802791975
 Animator:
   serializedVersion: 5
