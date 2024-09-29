@@ -1,8 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     private int[][] spawnCount;
     [SerializeField] private int waveInterval;
     [SerializeField] private Vector2[] spawnLocations;
+    [SerializeField] private UnityEvent onSpawn;
     private Collider2D activationArea;
     private TextMeshPro warningText;
     private Transform wallFolder;
@@ -51,23 +52,20 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         if (active) {
-            bool showWarning = true;
-            if (enemies.Count > 0) {
+            bool showWarning = false;
+            if (currentWave == waveCount) {
+                active = false;
+                UpdateWalls();
+            }
+            else if (enemies.Count > 0) {
                 enemies.RemoveAll(enemy => enemy == null);
-                showWarning = false;
             }
             else if (intervalTimer == 0) {
-                if (currentWave == waveCount) {
-                    active = false;
-                    UpdateWalls();
-                }
-                else {
-                    SpawnWave();
-                }
-                showWarning = false;
+                SpawnWave();
             }
             else {
                 intervalTimer = Mathf.Max(0, intervalTimer - Time.deltaTime);
+                showWarning = true;
             }
             warningText.enabled = showWarning;
         }
@@ -88,6 +86,8 @@ public class EnemySpawner : MonoBehaviour
                 enemies.Add(enemy);
             }
         }
+
+        onSpawn.Invoke();
         currentWave++;
         intervalTimer = waveInterval;
     }

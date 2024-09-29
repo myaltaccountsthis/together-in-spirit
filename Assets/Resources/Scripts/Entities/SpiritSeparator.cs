@@ -7,8 +7,6 @@ using UnityEngine.Events;
 public class SpiritSeparator : Interactable
 {
     private bool used = false;
-    public SpriteRenderer door;
-    public Sprite doorOpenSprite;
     public Vector3 splitOffset;
     public float splitTime;
     private int answer;
@@ -64,8 +62,6 @@ public class SpiritSeparator : Interactable
         LeanTween.move(spirit.gameObject, player.transform.position + splitOffset, splitTime).setEaseLinear().setOnComplete(() => {
             spirit.CanMove = true;
             user.dialogueManager.Show(new Dialogue("Yikes", new []{"The old machine you were investigating just separated your spirit from your body.", "Maybe your spirit can help you reach the rest of the mansion.", "Control your spirit with the arrow keys."}));
-            // TODO do something better with the door
-            door.gameObject.SetActive(false);
         });
         spirit.gameObject.SetActive(true);
         CanPlayerInteract = false;
@@ -87,7 +83,7 @@ public class SpiritSeparator : Interactable
         new string[] 
         {
             "We increased and then reduced the oxygen levels, but to no avail. The spirits remained untouched, indifferent to the atmosphere around them. Even as the air thinned and our own breathing became labored, the machine droned on with no sign of spiritual response. It appears oxygen has no bearing on the ethereal realm — they neither need it nor care for its absence.",
-            "Subject 13 showed heightened spirit detachment when oxygen levels were reduced. The chamber felt heavier, as though the very air resisted the process. The absence of oxygen seems to thin the boundary between the living and the spectral. We dare not increase the deprivation further; the last attempt left the machine... unsatisfied, its hum like a death rattle."
+            "Subject 13 showed increased spirit manifestation when oxygen levels were elevated. The chamber felt charged, as though the air itself crackled with energy. The presence of oxygen seems to strengthen the link between the living and the spectral. We plan to push it further - last time, the machine seemed to breathe with us, as if waiting for something to emerge."
         },
         new string[] 
         {
