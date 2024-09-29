@@ -22,6 +22,11 @@ public class FiringDevice : Entity
     {
         base.Awake();
         fixedDirection = fixedDirection.normalized;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
         spriteRenderer = GetComponent<SpriteRenderer>();
         normalSprite = spriteRenderer.sprite;
         coroutine = StartCoroutine(firing());
