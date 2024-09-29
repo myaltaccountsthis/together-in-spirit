@@ -17,6 +17,7 @@ public abstract class User : LivingEntity
     protected HashSet<Interactable> currentInteractables;
     private Vector2 interactOpenPosition, interactClosedPosition;
     protected CameraSystem cameraSystem;
+    protected Animator animator;
 
     private bool canMoveInternal = true;
     public bool CanMove { get => canMoveInternal; set {
@@ -30,14 +31,17 @@ public abstract class User : LivingEntity
         }
     } }
     protected float lastAngle;
+    public DialogueManager dialogueManager;
     public AudioSource damageSound;
     
     protected override void Awake()
     {
         base.Awake();
+        dialogueManager.gameObject.SetActive(true);
         interactOpenPosition = interactUI.anchoredPosition;
         interactClosedPosition = new Vector2(interactOpenPosition.x, -interactUI.sizeDelta.y - interactOpenPosition.y - 10);
         cameraSystem = Camera.main.GetComponent<CameraSystem>();
+        animator = GetComponent<Animator>();
         attackTimer = 0;
         lastAngle = 0;
     }
@@ -125,6 +129,18 @@ public abstract class User : LivingEntity
     }
 
     public override void Die() {
-        Debug.Log("Generic user died");
+        base.Die();
+        animator.SetFloat("Horizontal", 0f);
+        animator.SetFloat("Vertical", 0f);
+        cameraSystem.PlayDeathAnimation();
+        // Disable animator
+        animator.enabled = false;
+        // Set sprite to dead
+    }
+
+    public override void Respawn()
+    {
+        base.Respawn();
+        animator.enabled = true;
     }
 }

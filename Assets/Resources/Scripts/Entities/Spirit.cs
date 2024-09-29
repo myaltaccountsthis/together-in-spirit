@@ -9,16 +9,9 @@ public class Spirit : User
 
     [SerializeField] private Player player;
     [SerializeField] private SpiritAttack attackHitbox;
-    private Animator animator;
 
     /// <summary> Is the spirit trapped? (Boss fight) </summary>
     private bool trapped;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        animator = GetComponent<Animator>();
-    }
 
     protected override void Start()
     {
@@ -42,10 +35,6 @@ public class Spirit : User
         if (movement.magnitude > 0)
             lastAngle = Mathf.Deg2Rad * Vector2.SignedAngle(new Vector2(1, 0), movement);
         rigidbody.position = myPosition + MOVE_SPEED * Time.deltaTime * new Vector2(movement.x, movement.y);
-    }
-
-    public override void Die() {
-        Debug.Log("Spirit should die here");
     }
 
     protected override bool CanInteractWith(Interactable interactable)

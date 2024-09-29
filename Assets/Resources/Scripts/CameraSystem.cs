@@ -18,9 +18,12 @@ public class CameraSystem : MonoBehaviour
     public Transform bossMachine;
     public Image cover;
 
+    public bool IsAlive => player.Health > 0 && spirit.Health > 0;
+
     private new Camera camera;
     private PostProcessVolume volume;
     private bool cutsceneMode;
+    public bool InDeathAnimation { get; private set; }
 
     void Awake() {
         camera = Camera.main;
@@ -88,7 +91,7 @@ public class CameraSystem : MonoBehaviour
         float radius = LeanTween.linear(TRAP_ANIMATION_SPIRIT_RADIUS, 0, Mathf.Abs(alpha - .5f) * 2f);
         if (alpha < .5f)
             radius = LeanTween.linear(0, TRAP_ANIMATION_SPIRIT_RADIUS, alpha * 2f);
-        float angle = Mathf.PI * 2f / (1.5f - alpha) * Mathf.Max(0f, alpha - .333f) * 3f;
+        float angle = Mathf.PI * 2f / (1.5f - alpha) * alpha * 1.5f;
         return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
     }
 
@@ -119,9 +122,10 @@ public class CameraSystem : MonoBehaviour
         cover.color = startColor;
         while (t < duration) {
             t += Time.deltaTime;
-            float alpha = LeanTween.easeInQuad(0, 1, t / duration);
+            float trueAlpha = t / duration;
+            float alpha = LeanTween.easeInQuad(0, 1, trueAlpha);
             // Spirit position should finish tweening early
-            spirit.transform.position = Vector3.Lerp(spiritStartPos, spiritTargetPos, Mathf.Min(alpha * 1.8f, 1f)) + GetSpiritOffsetTrapAnimation(alpha);
+            spirit.transform.position = Vector3.Lerp(spiritStartPos, spiritTargetPos, Mathf.Min(alpha * 1.8f, 1f)) + GetSpiritOffsetTrapAnimation(trueAlpha);
             camera.transform.position = new(spirit.transform.position.x, spirit.transform.position.y, camera.transform.position.z);
             cover.color = Color.Lerp(startColor, targetColor, Mathf.Max(0f, (alpha - .85f) / .15f));
             yield return null;
@@ -137,6 +141,60 @@ public class CameraSystem : MonoBehaviour
         yield return new WaitForSeconds(duration);
         cover.enabled = false;
 
+        EndCutscene();
+    }
+
+    public void PlayDeathAnimation() {
+        if (player.Health > 0)
+            player.Die();
+        if (spirit.Health > 0)
+            spirit.Die();
+
+        InDeathAnimation = true;
+        player.dataManager.currentData.score -= 100;
+        StartCoroutine(RespawnCoroutine());
+    }
+
+    private IEnumerator RespawnCoroutine() {
+        BeginCutscene();
+        // Funny effects
+        float t = 0, duration = 1f;
+        Color startColor = new(1, 0, 0, 0), middleColor = Color.red, endColor = Color.black;
+        cover.color = startColor;
+        cover.enabled = true;
+        // Tween to red
+        while (t < duration) {
+            t += Time.deltaTime;
+            cover.color = Color.Lerp(startColor, middleColor, t / duration);
+            yield return null;
+        }
+        // Tween to black
+        t = 0;
+        duration = 1.5f;
+        while (t < duration) {
+            t += Time.deltaTime;
+            cover.color = Color.Lerp(middleColor, endColor, LeanTween.easeInOutSine(0, 1, t / duration));
+            yield return null;
+        }
+        cover.color = endColor;
+        // Do respawn functionality
+        Debug.LogWarning("IMPLEMENT ROOM RESPAWN");
+        // currentRoom.Activate();
+        // transform.position = currentRoom.spawnLocation.position;
+        player.Respawn();
+        spirit.Respawn();
+        // Wait and tween to transparent
+        yield return new WaitForSeconds(1);
+        Color transparent = new(0, 0, 0, 0);
+        t = 0;
+        duration = 1f;
+        while (t < duration) {
+            t += Time.deltaTime;
+            cover.color = Color.Lerp(endColor, transparent, t / duration);
+            yield return null;
+        }
+        // Done with sequence
+        cover.enabled = false;
         EndCutscene();
     }
 }
