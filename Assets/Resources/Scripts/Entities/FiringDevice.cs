@@ -49,9 +49,9 @@ public class FiringDevice : Entity
             audio.Play();
             Destroy(audio.gameObject, audio.clip.length);
             spriteRenderer.sprite = shootingSprite;
-            yield return new WaitForSeconds(delay / 4);
-            spriteRenderer.sprite = normalSprite;
             yield return new WaitForSeconds(delay / 2);
+            spriteRenderer.sprite = normalSprite;
+            yield return new WaitForSeconds(delay / 4);
         }
     }
 
