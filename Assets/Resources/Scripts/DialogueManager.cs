@@ -30,6 +30,8 @@ public class DialogueManager : MonoBehaviour, IPointerClickHandler
 
     private Vector2 openPosition, closedPosition;
 
+    private Coroutine typewriter;
+
     void Awake() {
         rectTransform = GetComponent<RectTransform>();
         inner = transform.Find("Inner").GetComponent<RectTransform>();
@@ -69,14 +71,15 @@ public class DialogueManager : MonoBehaviour, IPointerClickHandler
     }
 
     private void UpdateBody() {
-        StartCoroutine(StartTypewriter());
+        typewriter = StartCoroutine(StartTypewriter());
     }
 
     /** <summary> Begin a dialogue sequence </summary> */
     public void Show(Dialogue info) {
-        if (active) {
-            Debug.Log("Dialogue already active");
-            return;
+        if (active)
+        {
+            typewriterIndex = int.MaxValue;
+            StopCoroutine(typewriter);
         }
         active = true;
         debounce = true;
@@ -86,10 +89,19 @@ public class DialogueManager : MonoBehaviour, IPointerClickHandler
         arrow.text = "";
         dialogueIndex = 0;
         onDialogueBegin.Invoke();
-        LeanTween.move(rectTransform, openPosition, TWEEN_DURATION).setEaseOutQuad().setOnComplete(() => {
+        if (typewriterIndex < int.MaxValue)
+        {
+            LeanTween.move(rectTransform, openPosition, TWEEN_DURATION).setEaseOutQuad().setOnComplete(() =>
+            {
+                UpdateBody();
+                debounce = false;
+            });
+        }
+        else
+        {
             UpdateBody();
             debounce = false;
-        });
+        }
     }
 
     public void ShowNext() {
