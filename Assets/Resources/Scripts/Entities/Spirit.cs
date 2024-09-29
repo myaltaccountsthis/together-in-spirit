@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Spirit : User
 {
-    private const float MOVE_SPEED = 5f;
+    private const float MOVE_SPEED = 4f;
 
     [SerializeField] private Player player;
     [SerializeField] private SpiritAttack attackHitbox;

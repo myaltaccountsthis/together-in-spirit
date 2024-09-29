@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class Player : User
 {
-    private const float MOVE_SPEED = 4f;
+    private const float MOVE_SPEED = 3f;
 
     [SerializeField] private PlayerAttack attackHitbox;
 
