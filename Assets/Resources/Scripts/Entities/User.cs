@@ -24,10 +24,10 @@ public abstract class User : LivingEntity
         canMoveInternal = value;
         if (canMoveInternal) {
             HideInteract();
-            rigidbody.constraints |= RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+            rigidbody.constraints &= ~RigidbodyConstraints2D.FreezePositionX & ~RigidbodyConstraints2D.FreezePositionY;
         }
         else {
-            rigidbody.constraints &= ~RigidbodyConstraints2D.FreezePositionX & ~RigidbodyConstraints2D.FreezePositionY;
+            rigidbody.constraints |= RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
         }
     } }
     protected float lastAngle;

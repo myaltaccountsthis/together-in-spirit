@@ -48,7 +48,7 @@ public class Player : User
         if (!base.Attack())
             return false;
         // TODO: Impl attack
-        PlayerAttack newAttack = Instantiate<PlayerAttack>(attackHitbox, transform.position, Quaternion.identity);
+        PlayerAttack newAttack = Instantiate(attackHitbox, transform.position, Quaternion.identity);
         newAttack.SetDirection(lastAngle);
         newAttack.transform.localPosition = transform.position + new Vector3(Mathf.Cos(lastAngle), Mathf.Sin(lastAngle), 0) * newAttack.getDistanceOffset();
         return true;
@@ -56,7 +56,7 @@ public class Player : User
 
     public void DoTest(InputAction.CallbackContext context) {
         if (context.performed)
-            cameraSystem.FlashVignette();
+            dialogueManager.Show(new("Bro lmfao", new string[] {"test dialogue 123"}));
     }
 
 
