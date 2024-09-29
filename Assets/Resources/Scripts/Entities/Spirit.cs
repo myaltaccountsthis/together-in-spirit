@@ -48,17 +48,16 @@ public class Spirit : User
         TrapSpirit();
     }
 
+    /// <summary> Does not begin the cutscene. Call that separately </summary>
     public void TrapSpirit() {
         trapped = true;
         CanMove = false;
-        StartCoroutine(cameraSystem.StartTrapSpiritAnimation());
     }
 
     public override bool Attack()
     {
         if (!base.Attack())
             return false;
-        
         SpiritAttack newAttack = Instantiate(attackHitbox, transform.position, Quaternion.identity);
         newAttack.SetDirection(lastAngle);
         newAttack.transform.localPosition = transform.position + new Vector3(Mathf.Cos(lastAngle), Mathf.Sin(lastAngle), 0) * newAttack.getDistanceOffset();
@@ -68,5 +67,12 @@ public class Spirit : User
     public void ShowAttackInstructions()
     {
         dialogueManager.Show(new Dialogue("What is that thing?", new string[]{"Your spirit can use the right shift key to fire a ranged attack. Your player can also do a slash attack with Q"}));
+    }
+
+    public override void Respawn()
+    {
+        base.Respawn();
+        trapped = false;
+        CanMove = true;
     }
 }

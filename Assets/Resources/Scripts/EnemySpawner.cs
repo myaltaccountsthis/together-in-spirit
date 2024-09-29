@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,7 +5,7 @@ using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
-    private const float START_DELAY = 3f;
+    private const float START_DELAY = 5f;
     
     // Sizes should be the same
     [SerializeField] private Enemy[] enemyPrefabs;
@@ -39,13 +38,9 @@ public class EnemySpawner : MonoBehaviour
         enemies = new List<Enemy>();
         spawnCount = new int[waveCount][];
         for (int i = 0; i < waveCount; i++) {
-            spawnCount[i] = Array.ConvertAll(spawnCountInfo[i].Split(','), int.Parse);
+            spawnCount[i] = System.Array.ConvertAll(spawnCountInfo[i].Split(','), int.Parse);
         }
         active = false;
-    }
-
-    void Start() {
-        intervalTimer = START_DELAY;
     }
 
     // Update is called once per frame
@@ -53,12 +48,12 @@ public class EnemySpawner : MonoBehaviour
     {
         if (active) {
             bool showWarning = false;
-            if (currentWave == waveCount) {
+            if (enemies.Count > 0) {
+                enemies.RemoveAll(enemy => enemy == null);
+            }
+            else if (currentWave == waveCount) {
                 active = false;
                 UpdateWalls();
-            }
-            else if (enemies.Count > 0) {
-                enemies.RemoveAll(enemy => enemy == null);
             }
             else if (intervalTimer == 0) {
                 SpawnWave();
@@ -72,17 +67,27 @@ public class EnemySpawner : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.TryGetComponent(out User user) && !active) {
+        if (other.TryGetComponent(out User user) && !active && currentWave == 0) {
+            Vector3 pos = Vector3.MoveTowards(user.transform.position, activationArea.bounds.center, 1f);
             active = true;
-            UpdateWalls();
+            intervalTimer = START_DELAY;
+            CameraSystem cameraSystem = Camera.main.GetComponent<CameraSystem>();
+            // Only dip to black if the player and spirit are not in the activation area
+            if (!activationArea.OverlapPoint(cameraSystem.player.transform.position) || !activationArea.OverlapPoint(cameraSystem.spirit.transform.position)) {
+                cameraSystem.PlayDipToBlack(() => {
+                    cameraSystem.player.transform.position = pos + (Vector3)Random.insideUnitCircle * .5f;
+                    cameraSystem.spirit.transform.position = pos + (Vector3)Random.insideUnitCircle * .5f;
+                    UpdateWalls();
+                });
+            }
         }
     }
 
     private void SpawnWave() {
         for (int i = 0; i < spawnCount[currentWave].Length; i++) {
             for (int j = 0; j < spawnCount[currentWave][i]; j++) {
-                Enemy enemy = Instantiate(enemyPrefabs[i], spawnLocations[UnityEngine.Random.Range(0, spawnLocations.Length)]
-                + new Vector2(UnityEngine.Random.Range(-.1f, .1f), UnityEngine.Random.Range(-.1f, .1f)), Quaternion.identity, transform);
+                Enemy enemy = Instantiate(enemyPrefabs[i], spawnLocations[Random.Range(0, spawnLocations.Length)]
+                + new Vector2(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f)), Quaternion.identity, transform);
                 enemies.Add(enemy);
             }
         }

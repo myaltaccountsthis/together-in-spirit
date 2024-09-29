@@ -121,6 +121,8 @@ public abstract class User : LivingEntity
     protected abstract bool CanInteractWith(Interactable interactable);
 
     public override void TakeDamage(int damage) {
+        if (Health < 0)
+            return;
         base.TakeDamage(damage);
         // Do some post processing vignette
         cameraSystem.FlashVignette();

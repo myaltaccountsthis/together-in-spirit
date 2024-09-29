@@ -764,7 +764,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 1663
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1532,9 +1532,9 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1709163973
-  m_SortingLayer: 1
-  m_SortingOrder: 5
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
   m_Positions:
   - {x: -1, y: -0.5, z: 0}
   - {x: 3.5, y: -0.5, z: 0}
@@ -1680,6 +1680,10 @@ PrefabInstance:
     - target: {fileID: 42654864434891221, guid: 774a2008eeb3e8d49a7c49bd9aafac79, type: 3}
       propertyPath: m_Name
       value: Spotlight
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839126407469044651, guid: 774a2008eeb3e8d49a7c49bd9aafac79, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 255
       objectReference: {fileID: 0}
     - target: {fileID: 9041159350456087144, guid: 774a2008eeb3e8d49a7c49bd9aafac79, type: 3}
       propertyPath: m_LocalScale.x
@@ -1829,7 +1833,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1663
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1954,7 +1958,7 @@ Transform:
   m_GameObject: {fileID: 159521879}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.5, y: -17.5, z: 0}
+  m_LocalPosition: {x: 3.5, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2012,7 +2016,7 @@ MonoBehaviour:
   index: 10
   spawnLocation: {fileID: 1695486941}
   spiritSpawnLocation: {fileID: 1903211712}
-  shouldResetChildren: {fileID: 1695486941}
+  shouldResetChildren: {fileID: 1476658041}
 --- !u!61 &164263403
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2028,7 +2032,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 1663
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -2461,7 +2465,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -5925,7 +5929,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 1663
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -6350,7 +6354,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 1663
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -6977,7 +6981,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 1663
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -7145,7 +7149,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1663
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -7278,7 +7282,7 @@ Transform:
   m_GameObject: {fileID: 524906497}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 6.5, z: 0}
+  m_LocalPosition: {x: -1.5, y: 6.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7820,7 +7824,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1663
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -8767,43 +8771,12 @@ Transform:
   m_GameObject: {fileID: 711557051}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: -0.5, z: 0}
+  m_LocalPosition: {x: -1.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 864081778}
   m_Father: {fileID: 1954605338}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &714884573
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 714884574}
-  m_Layer: 0
-  m_Name: LightWall (3)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &714884574
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 714884573}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.5, y: -18.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2050620503}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &718103055 stripped
 Transform:
@@ -8909,7 +8882,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 1663
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -9564,7 +9537,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 1663
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -11850,7 +11823,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 1663
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -12570,7 +12543,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 1663
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -13889,7 +13862,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 1663
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -25003,7 +24976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1545430972
 Transform:
   m_ObjectHideFlags: 0
@@ -25054,7 +25027,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 1663
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -25150,7 +25123,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 1cad040b69a69364f89ac4ff70c9a252, type: 3}
     - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
       propertyPath: enable.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
       propertyPath: disable.m_PersistentCalls.m_Calls.Array.size
@@ -25165,6 +25138,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
+      propertyPath: enable.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
       propertyPath: disable.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 6
       objectReference: {fileID: 0}
@@ -25177,6 +25154,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1896724591}
     - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
+      propertyPath: enable.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1545430971}
+    - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
       propertyPath: disable.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 412575663}
@@ -25186,6 +25167,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
       propertyPath: enable.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
+      propertyPath: enable.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
@@ -25201,6 +25186,10 @@ PrefabInstance:
       value: Unbind
       objectReference: {fileID: 0}
     - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
+      propertyPath: enable.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
       propertyPath: disable.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetActive
       objectReference: {fileID: 0}
@@ -25213,8 +25202,16 @@ PrefabInstance:
       value: Lever, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
+      propertyPath: enable.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
       propertyPath: disable.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
+      propertyPath: enable.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
       propertyPath: disable.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
@@ -25226,6 +25223,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
       propertyPath: enable.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
+      propertyPath: enable.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8425176657946895510, guid: 26964e66cd6383f4f858c73e1a3379d2, type: 3}
@@ -25643,7 +25644,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -26355,7 +26356,7 @@ Transform:
   m_GameObject: {fileID: 1664555593}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.5, y: -17.5, z: 0}
+  m_LocalPosition: {x: 3.5, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27121,7 +27122,7 @@ Transform:
   m_GameObject: {fileID: 1759113803}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.5, y: -18.5, z: 0}
+  m_LocalPosition: {x: 4.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27510,11 +27511,11 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1709163973
-  m_SortingLayer: 1
-  m_SortingOrder: 5
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
   m_Positions:
-  - {x: -1, y: 6.5, z: 0}
+  - {x: -1.5, y: 6.5, z: 0}
   - {x: 2.5, y: 6.5, z: 0}
   - {x: 2.5, y: 1.5, z: 0}
   m_Parameters:
@@ -28407,7 +28408,6 @@ Transform:
   - {fileID: 159521880}
   - {fileID: 1664555594}
   - {fileID: 1759113804}
-  - {fileID: 714884574}
   m_Father: {fileID: 1954605338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2100528785
@@ -29302,7 +29302,7 @@ Transform:
   m_GameObject: {fileID: 8296036457110214067}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.25, y: -6, z: 0}
+  m_LocalPosition: {x: -1.5, y: -6, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -29639,6 +29639,7 @@ MonoBehaviour:
   bossMachine: {fileID: 1936611148}
   cover: {fileID: 55718204}
   currentRoom: {fileID: 67106715}
+  InBossFight: 0
 --- !u!114 &6152738091414596407
 MonoBehaviour:
   m_ObjectHideFlags: 0
