@@ -5,8 +5,8 @@ using UnityEngine.Events;
 
 public class Lever : Interactable
 {
-    public UnityEvent enable;
-    public UnityEvent disable;
+    public UnityAction enable;
+    public UnityAction disable;
     public Sprite activeSprite, inactiveSprite;
 
     private SpriteRenderer spriteRenderer;
