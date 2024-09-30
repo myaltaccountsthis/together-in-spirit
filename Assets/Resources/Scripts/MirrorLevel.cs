@@ -102,7 +102,7 @@ public class MirrorLevel : MonoBehaviour
             }
             prevPoint += direction;
         }
-        localPoints.Add(prevPoint);
+        localPoints.Add(new(Mathf.Clamp(prevPoint.x, 0, boundsSize.x - 1), Mathf.Clamp(prevPoint.y, 0, boundsSize.y - 1)));
         List<Vector2> pointsList = localPoints.ConvertAll(point => new Vector2(point.x + .5f + bottomLeft.x - transform.position.x, point.y + .5f + bottomLeft.y - transform.position.y));
         Vector3[] points = pointsList.Select(point => (Vector3) point).ToArray();
         lineRenderer.positionCount = points.Length;

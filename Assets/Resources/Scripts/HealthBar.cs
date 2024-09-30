@@ -38,6 +38,8 @@ public class HealthBar : MonoBehaviour
     private Color GetColor(float value) {
         if (value >= greenAmount)
             return Color.green;
+        if (value >= yellowAmount)
+            return Color.Lerp(Color.yellow, Color.green, (value - yellowAmount) / (greenAmount - yellowAmount));
         if (value <= redAmount)
             return Color.red;
         return Color.Lerp(Color.red, Color.yellow, (value - redAmount) / (yellowAmount - redAmount));

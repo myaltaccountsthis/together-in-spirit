@@ -7,7 +7,6 @@ public class Enemy : LivingEntity
 {
     [SerializeField] protected int damage;
     [SerializeField] protected float speed;
-    [SerializeField] protected int score;
     protected bool active;
     private Player player;
     private Spirit spirit;
@@ -38,7 +37,7 @@ public class Enemy : LivingEntity
 
     private Vector2 GetTargetPosition() {
         Vector2 closerPos = player.transform.position;
-        if (spirit.gameObject.activeSelf && (transform.position - spirit.transform.position).magnitude < (transform.position - player.transform.position).magnitude)
+        if (spirit.gameObject.activeSelf && !spirit.IsTrapped && (transform.position - spirit.transform.position).magnitude < (transform.position - player.transform.position).magnitude)
         {
             closerPos = spirit.transform.position;
         }
@@ -66,7 +65,6 @@ public class Enemy : LivingEntity
     public override void Die()
     {
         base.Die();
-        GameObject.FindWithTag("GameController").GetComponent<DataManager>().currentData.score += score;
         Destroy(gameObject);
     }
 }

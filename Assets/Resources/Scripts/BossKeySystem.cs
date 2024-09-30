@@ -10,6 +10,7 @@ public class BossKeySystem : MonoBehaviour
     
     public Spirit spirit;
     public BossKey bossKeyPrefab;
+    public GameObject warning;
     private List<BossKey> bossKeys;
     private RectTransform rectTransform;
     private Keyboard keyboard;
@@ -34,17 +35,28 @@ public class BossKeySystem : MonoBehaviour
     }
     
     void Update() {
+        float prevTimeToEnterKeys = timeToEnterKeys;
         timeUntilNextKeys -= Time.deltaTime;
         timeToEnterKeys -= Time.deltaTime;
-        if (timeUntilNextKeys <= 0 && bossKeys.Count == 0) {
-            GenerateKeys();
+        if (bossKeys.Count == 0) {
+            if (timeUntilNextKeys <= 0) {
+                warning.SetActive(false);
+                GenerateKeys();
+            }
+            else if (timeUntilNextKeys <= 1.5f) {
+                warning.SetActive(true);
+            }
         }
         
         if (currentKeyIndex >= bossKeys.Count)
             return;
         
-        if (timeToEnterKeys <= 0)
-            OnFail();
+        if (timeToEnterKeys <= 0) {
+            if (Mathf.FloorToInt(prevTimeToEnterKeys) != Mathf.FloorToInt(timeToEnterKeys)) {
+                // Take damage every second
+                OnFail();
+            }
+        }
         
         for (int i = 0; i < keys.Length; i++) {
             if (keyboard[keys[i]].wasPressedThisFrame) {
@@ -58,6 +70,7 @@ public class BossKeySystem : MonoBehaviour
                 else {
                     OnFail();
                 }
+                break;
             }
         }
     }
@@ -68,27 +81,27 @@ public class BossKeySystem : MonoBehaviour
 
     private void OnFail() {
         // Spirit should take damage
-        spirit.TakeDamage(5 * (1 + ++wrongInputs));
-        Hide();
+        spirit.TakeDamage(5 * (++wrongInputs) + successfulInputs);
     }
 
     private void OnSuccess() {
         successfulInputs++;
+        wrongInputs = 0;
         Hide();
     }
 
     private float GetNextKeysTime() {
-        return Mathf.Max(10f - successfulInputs, GetKeyCount() * .5f);
+        return Mathf.Max(10f - successfulInputs * .6f, GetKeyCount() * 1f);
     }
 
     private float GetTimeToEnterKeys() {
-        return Mathf.Max(bossKeys.Count * 1f - successfulInputs * .5f, 2f + bossKeys.Count * .25f);
+        return Mathf.Max(bossKeys.Count * 1f - successfulInputs * .4f, 2f + bossKeys.Count * .25f);
     }
 
     private int GetKeyCount() {
         if (successfulInputs < 3)
             return 4;
-        return ((successfulInputs + 1) / 2) + 3;
+        return (successfulInputs / 3) + 4;
     }
 
     /// <summary> Generate new keys, assuming the previous keys were destroyed </summary>
