@@ -91,7 +91,7 @@ public class BossKeySystem : MonoBehaviour
     }
 
     private float GetNextKeysTime() {
-        return Mathf.Max(10f - successfulInputs * .6f, GetKeyCount() * 1f);
+        return Mathf.Max(10f - successfulInputs * .8f, GetKeyCount() * .8f);
     }
 
     private float GetTimeToEnterKeys() {

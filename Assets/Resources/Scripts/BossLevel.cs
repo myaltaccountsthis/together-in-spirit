@@ -68,6 +68,7 @@ public class BossLevel : MonoBehaviour
         aliveTime = 0;
         nextAttackCooldown = ACTIVATE_DELAY;
         machineSpriteRenderer.sprite = machineSpriteInactive;
+        machineSpriteRenderer.color = Color.white;
     }
 
     void Update() {
@@ -143,11 +144,13 @@ public class BossLevel : MonoBehaviour
         cameraSystem.spirit.TrapSpirit();
         AudioSource.PlayClipAtPoint(trapSound, transform.position);
         StartCoroutine(cameraSystem.StartTrapSpiritAnimation(() => {
+            machineSpriteRenderer.sprite = machineSpriteActive;
+            machineSpriteRenderer.color = new(1, 1, 1, .5f);
+        }, () => {
             nextAttackCooldown = GetNextAttackCooldown();
             bossKeySystem.gameObject.SetActive(true);
             cameraSystem.InBossFight = true;
             active = true;
-            machineSpriteRenderer.sprite = machineSpriteActive;
             healthBar = Instantiate(Resources.Load<HealthBar>("Prefabs/HealthBar"), GameObject.Find("WorldCanvas").transform);
             healthBar.attachment = bossSpriteRenderer.transform.Find("HealthBarAttachment");
             healthBar.scale = 1.5f;

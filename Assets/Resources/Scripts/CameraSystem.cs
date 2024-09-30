@@ -121,7 +121,7 @@ public class CameraSystem : MonoBehaviour
         return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
     }
 
-    public IEnumerator StartTrapSpiritAnimation(Action callback) {
+    public IEnumerator StartTrapSpiritAnimation(Action midCallback, Action callback) {
         BeginCutscene();
         // Do cutscene
         // Start with dip to black
