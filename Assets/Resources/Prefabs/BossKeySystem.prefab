@@ -59,3 +59,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spirit: {fileID: 0}
   bossKeyPrefab: {fileID: 6318708692357315478, guid: 3583385ace0f9944a9d2eac4aff092d5, type: 3}
+  warning: {fileID: 0}
+  alarmSound: {fileID: 8300000, guid: 8c93d43888f9ca7429545c53aa2549df, type: 3}

@@ -14,11 +14,13 @@ public class BossKeySystem : MonoBehaviour
     private List<BossKey> bossKeys;
     private RectTransform rectTransform;
     private Keyboard keyboard;
+    public AudioClip alarmSound;
     private int currentKeyIndex;
     private int successfulInputs;
     private int wrongInputs;
     private float timeToEnterKeys;
     private float timeUntilNextKeys;
+    private bool soundPlayed;
 
     void Awake() {
         rectTransform = GetComponent<RectTransform>();
@@ -41,10 +43,16 @@ public class BossKeySystem : MonoBehaviour
         if (bossKeys.Count == 0) {
             if (timeUntilNextKeys <= 0) {
                 warning.SetActive(false);
+                soundPlayed = false;
                 GenerateKeys();
             }
             else if (timeUntilNextKeys <= 1.5f) {
                 warning.SetActive(true);
+                if (!soundPlayed)
+                {
+                    AudioSource.PlayClipAtPoint(alarmSound, transform.position);
+                    soundPlayed = true;
+                }
             }
         }
         

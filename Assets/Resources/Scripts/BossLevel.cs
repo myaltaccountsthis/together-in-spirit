@@ -13,6 +13,7 @@ public class BossLevel : MonoBehaviour
     private const float BOSS_CHARGE_ANIMATION_DELAY = .2f;
     private const float BOSS_HOVER_PERIOD = 4f, BOSS_HOVER_AMPLITUDE = .03f;
     public AudioClip trapSound;
+    public AudioClip alarmSound;
     public AudioSource normalMusic;
     public AudioSource bossMusic;
 
@@ -43,6 +44,7 @@ public class BossLevel : MonoBehaviour
     private int chargeAnimIndex;
     private float aliveTime;
     private float sineWaveTick, animationTick;
+    private bool soundPlayed;
 
     void Awake() {
         cameraSystem = Camera.main.GetComponent<CameraSystem>();
@@ -117,10 +119,16 @@ public class BossLevel : MonoBehaviour
             nextAttackCooldown -= Time.deltaTime;
             if (nextAttackCooldown <= 0) {
                 warning.SetActive(false);
+                soundPlayed = false;
                 DoRandomAttack();
             }
             else if (nextAttackCooldown <= 1.5f) {
                 warning.SetActive(true);
+                if (!soundPlayed)
+                {
+                    AudioSource.PlayClipAtPoint(alarmSound, transform.position);
+                    soundPlayed = true;
+                }
             }
         }
     }
@@ -142,7 +150,6 @@ public class BossLevel : MonoBehaviour
         bossMusic.gameObject.SetActive(true);
         yield return new WaitForSeconds(ACTIVATE_DELAY);
         cameraSystem.spirit.TrapSpirit();
-        AudioSource.PlayClipAtPoint(trapSound, transform.position);
         StartCoroutine(cameraSystem.StartTrapSpiritAnimation(() => {
             machineSpriteRenderer.sprite = machineSpriteActive;
             machineSpriteRenderer.color = new(1, 1, 1, .5f);
@@ -154,7 +161,7 @@ public class BossLevel : MonoBehaviour
             healthBar = Instantiate(Resources.Load<HealthBar>("Prefabs/HealthBar"), GameObject.Find("WorldCanvas").transform);
             healthBar.attachment = bossSpriteRenderer.transform.Find("HealthBarAttachment");
             healthBar.scale = 1.5f;
-        }));
+        }, trapSound));
     }
 
     // General attack functions

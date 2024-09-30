@@ -121,7 +121,7 @@ public class CameraSystem : MonoBehaviour
         return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
     }
 
-    public IEnumerator StartTrapSpiritAnimation(Action midCallback, Action callback) {
+    public IEnumerator StartTrapSpiritAnimation(Action midCallback, Action callback, AudioClip sound) {
         BeginCutscene();
         // Do cutscene
         // Start with dip to black
@@ -153,6 +153,7 @@ public class CameraSystem : MonoBehaviour
         duration = Mathf.Sqrt((spiritTargetPos - spiritStartPos).magnitude) + 2f;
         targetColor = Color.white;
         cover.color = startColor;
+        AudioSource.PlayClipAtPoint(sound, transform.position);
         while (t < duration) {
             t += Time.deltaTime;
             float trueAlpha = t / duration;
