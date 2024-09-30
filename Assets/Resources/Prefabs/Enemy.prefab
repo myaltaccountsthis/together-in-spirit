@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 1724577875
   m_SortingLayer: 2
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: ff4dc17416cfb1442895a19404ccb05f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 35971359ce1f4ca46bff0ff7bc744f30, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -165,10 +165,10 @@ MonoBehaviour:
   MaxHealth: 10
   damageSound: {fileID: 8300000, guid: 9cce61085f3dc7d40927fecef36075ba, type: 3}
   deathSound: {fileID: 8300000, guid: c28457720446ec841a642e2fe25e592c, type: 3}
+  hitbox: {fileID: 0}
   healthBarScale: 1
   damage: 10
   speed: 1.5
-  score: 50
 --- !u!95 &6944548204450372063
 Animator:
   serializedVersion: 5

@@ -75,8 +75,9 @@ public class EnemySpawner : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.TryGetComponent(out User _) && !active && currentWave == 0 &&
+        if (other.TryGetComponent(out User user) && !active && currentWave == 0 &&
             activationArea.IsTouching(cameraSystem.player.hitbox) && activationArea.IsTouching(cameraSystem.spirit.hitbox)) {
+            user.transform.position = Vector3.MoveTowards(user.transform.position, activationArea.bounds.center, .5f);
             active = true;
             intervalTimer = START_DELAY;
             entranceWall.gameObject.SetActive(true);
