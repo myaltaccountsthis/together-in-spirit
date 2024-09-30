@@ -22,6 +22,7 @@ public class Player : User
         base.Awake();
         dialogueManager.gameObject.SetActive(true);
         transform.position = cameraSystem.currentRoom.spawnLocation.position;
+        dialogueManager.Show(new Dialogue("Case File 864", new string[]{"Witnesses have reported unsettling noises coming from inside the abandoned mansion. Investigate the area and report back to me."}));
     }
 
     protected override void FixedUpdate() {
