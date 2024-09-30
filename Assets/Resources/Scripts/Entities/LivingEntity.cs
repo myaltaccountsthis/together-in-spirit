@@ -8,7 +8,7 @@ public abstract class LivingEntity : Entity
     public int Health { get; protected set; }
     public AudioClip damageSound;
     public AudioClip deathSound;
-    protected Collider2D hitbox;
+    public Collider2D hitbox;
     protected new Rigidbody2D rigidbody;
     private HealthBar healthBar;
     [SerializeField] private float healthBarScale = 1f;

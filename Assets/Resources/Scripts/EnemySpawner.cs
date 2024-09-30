@@ -5,8 +5,9 @@ using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
-    private const float START_DELAY = 5f;
-    
+    private const float START_DELAY = 3f;
+
+    public AudioClip alarmAudio;
     // Sizes should be the same
     [SerializeField] private Enemy[] enemyPrefabs;
     [SerializeField] private string[] spawnCountInfo;
@@ -17,23 +18,21 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private UnityEvent onVictory;
     private Collider2D activationArea;
     private TextMeshPro warningText;
-    private Transform wallFolder;
-    private List<Transform> walls;
+    [SerializeField] public Transform entranceWall, exitWall;
+    private CameraSystem cameraSystem;
     private int currentWave;
     private int waveCount;
     private List<Enemy> enemies;
     private bool active;
+    private bool playedWarning;
     private float intervalTimer;
 
     void Awake() {
         activationArea = GetComponent<Collider2D>();
         warningText = transform.Find("WarningText").GetComponent<TextMeshPro>();
-        wallFolder = transform.Find("Walls");
-        walls = new();
-        foreach (Transform wall in wallFolder) {
-            walls.Add(wall);
-            wall.gameObject.SetActive(false);
-        }
+        cameraSystem = Camera.main.GetComponent<CameraSystem>();
+        entranceWall.gameObject.SetActive(false);
+        exitWall.gameObject.SetActive(true);
         currentWave = 0;
         waveCount = spawnCountInfo.Length;
         enemies = new List<Enemy>();
@@ -42,6 +41,8 @@ public class EnemySpawner : MonoBehaviour
             spawnCount[i] = System.Array.ConvertAll(spawnCountInfo[i].Split(','), int.Parse);
         }
         active = false;
+        playedWarning = false;
+        warningText.enabled = false;
     }
 
     // Update is called once per frame
@@ -54,7 +55,8 @@ public class EnemySpawner : MonoBehaviour
             }
             else if (currentWave == waveCount) {
                 active = false;
-                UpdateWalls();
+                entranceWall.gameObject.SetActive(false);
+                exitWall.gameObject.SetActive(false);
                 onVictory.Invoke();
             }
             else if (intervalTimer == 0) {
@@ -63,25 +65,24 @@ public class EnemySpawner : MonoBehaviour
             else {
                 intervalTimer = Mathf.Max(0, intervalTimer - Time.deltaTime);
                 showWarning = true;
+                if (!playedWarning) {
+                    playedWarning = true;
+                    AudioSource.PlayClipAtPoint(alarmAudio, transform.position);
+                }
             }
             warningText.enabled = showWarning;
         }
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.TryGetComponent(out User user) && !active && currentWave == 0) {
-            Vector3 pos = Vector3.MoveTowards(user.transform.position, activationArea.bounds.center, 1f);
+        if (other.TryGetComponent(out User user) && !active && currentWave == 0 &&
+            activationArea.IsTouching(cameraSystem.player.hitbox) && activationArea.IsTouching(cameraSystem.spirit.hitbox)) {
+            user.transform.position = Vector3.MoveTowards(user.transform.position, activationArea.bounds.center, .5f);
             active = true;
             intervalTimer = START_DELAY;
-            CameraSystem cameraSystem = Camera.main.GetComponent<CameraSystem>();
-            // Only dip to black if the player and spirit are not in the activation area
-            if (!activationArea.OverlapPoint(cameraSystem.player.transform.position) || !activationArea.OverlapPoint(cameraSystem.spirit.transform.position)) {
-                cameraSystem.PlayDipToBlack(() => {
-                    cameraSystem.player.transform.position = pos + (Vector3)Random.insideUnitCircle * .5f;
-                    cameraSystem.spirit.transform.position = pos + (Vector3)Random.insideUnitCircle * .5f;
-                    UpdateWalls();
-                });
-            }
+            entranceWall.gameObject.SetActive(true);
+            // Redundant but ok
+            exitWall.gameObject.SetActive(true);
         }
     }
 
@@ -97,11 +98,6 @@ public class EnemySpawner : MonoBehaviour
         onSpawn.Invoke();
         currentWave++;
         intervalTimer = waveInterval;
-    }
-
-    private void UpdateWalls() {
-        foreach (Transform wall in walls) {
-            wall.gameObject.SetActive(active);
-        }
+        playedWarning = false;
     }
 }
