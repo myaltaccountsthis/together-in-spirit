@@ -7,12 +7,17 @@ using UnityEngine.Events;
 public class SpiritSeparator : Interactable
 {
     private bool used = false;
-    public Vector3 splitOffset;
-    public float splitTime;
     private int answer;
     private int curr;
     public Lever[] levers;
     public Note[] notes;
+    public Sprite normalSprite;
+    public Sprite chargeSprite;
+    public Sprite activateSprite;
+    public GameObject outputDuct;
+    public AudioClip activateSound;
+    public AudioClip splitSound;
+    private SpriteRenderer spriteRenderer;
     
     protected override void Awake()
     {
@@ -50,20 +55,17 @@ public class SpiritSeparator : Interactable
             notes[i].title = "Old Research";
             notes[i].message = messages[i][(answer & bit) > 0 ? 1 : 0];
         }
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        normalSprite = spriteRenderer.sprite;
     }
 
     public override void Interact(User user)
     {
         if (used) return;
-        Player player = (Player)user;
-        Spirit spirit = player.spirit;
-        spirit.transform.position = player.transform.position;
-        spirit.CanMove = false;
-        LeanTween.move(spirit.gameObject, player.transform.position + splitOffset, splitTime).setEaseLinear().setOnComplete(() => {
-            spirit.CanMove = true;
-            user.dialogueManager.Show(new Dialogue("Yikes", new []{"The old machine you were investigating just separated your spirit from your body.", "Maybe your spirit can help you reach the rest of the mansion.", "Control your spirit with the arrow keys."}));
-        });
-        spirit.gameObject.SetActive(true);
+        CameraSystem cameraSystem = Camera.main.GetComponent<CameraSystem>();
+        AudioSource.PlayClipAtPoint(splitSound, transform.position);
+        cameraSystem.PlaySplitAnimation();
+        
         CanPlayerInteract = false;
         used = true;
     }
@@ -75,7 +77,9 @@ public class SpiritSeparator : Interactable
         {
             lever.CanPlayerInteract = false;
         }
+        AudioSource.PlayClipAtPoint(activateSound, transform.position);
         CanPlayerInteract = true;
+        spriteRenderer.sprite = chargeSprite;
     }
     
     private static readonly string[][] messages = new string[6][]

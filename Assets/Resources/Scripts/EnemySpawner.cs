@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private int waveInterval;
     [SerializeField] private Vector2[] spawnLocations;
     [SerializeField] private UnityEvent onSpawn;
+    [SerializeField] private UnityEvent onVictory;
     private Collider2D activationArea;
     private TextMeshPro warningText;
     private Transform wallFolder;
@@ -54,6 +55,7 @@ public class EnemySpawner : MonoBehaviour
             else if (currentWave == waveCount) {
                 active = false;
                 UpdateWalls();
+                onVictory.Invoke();
             }
             else if (intervalTimer == 0) {
                 SpawnWave();

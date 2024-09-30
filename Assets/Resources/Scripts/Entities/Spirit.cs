@@ -73,6 +73,11 @@ public class Spirit : User
         dialogueManager.Show(new Dialogue("What is that thing?", new string[]{"Your spirit can use the right shift key to fire a ranged attack. Your player can also do a slash attack with Q"}));
     }
 
+    public void ShowLightWarning()
+    {
+        dialogueManager.Show(new Dialogue("Caution!", new string[]{"Watch out!! Your spirit is vulnerable to the light!"}));
+    }
+
     public override void Respawn()
     {
         base.Respawn();

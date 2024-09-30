@@ -5,6 +5,7 @@ using UnityEngine;
 public class Mirror : Interactable
 {
     private SpriteRenderer spriteRenderer;
+    public AudioClip rotateSound;
 
     private bool rotatedInternal;
     /// <summary>
@@ -32,6 +33,7 @@ public class Mirror : Interactable
     public override void Interact(User user)
     {
         Rotated = !Rotated;
+        AudioSource.PlayClipAtPoint(rotateSound, transform.position);
         lineReflector.UpdateLine();
     }
 }

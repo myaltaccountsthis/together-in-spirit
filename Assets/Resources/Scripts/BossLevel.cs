@@ -21,6 +21,8 @@ public class BossLevel : MonoBehaviour
     public Sprite[] bossChargeSprites;
     public Sprite bossAttackSprite;
     public SpriteRenderer bossSpriteRenderer;
+    public SpriteRenderer machineSpriteRenderer;
+    public Sprite machineSpriteActive, machineSpriteInactive;
     public float TIME_TO_SURVIVE = 90f;
     private CameraSystem cameraSystem;
     private BossKeySystem bossKeySystem;
@@ -62,6 +64,7 @@ public class BossLevel : MonoBehaviour
         chargeAnimIndex = 0;
         aliveTime = 0;
         nextAttackCooldown = ACTIVATE_DELAY;
+        machineSpriteRenderer.sprite = machineSpriteInactive;
     }
 
     void Update() {
@@ -129,6 +132,7 @@ public class BossLevel : MonoBehaviour
     }
 
     private IEnumerator ActivateBossSequence() {
+        // START BOSS
         yield return new WaitForSeconds(ACTIVATE_DELAY);
         cameraSystem.spirit.TrapSpirit();
         StartCoroutine(cameraSystem.StartTrapSpiritAnimation(() => {
@@ -136,6 +140,7 @@ public class BossLevel : MonoBehaviour
             bossKeySystem.gameObject.SetActive(true);
             cameraSystem.InBossFight = true;
             active = true;
+            machineSpriteRenderer.sprite = machineSpriteActive;
             healthBar = Instantiate(Resources.Load<HealthBar>("Prefabs/HealthBar"), GameObject.Find("WorldCanvas").transform);
             healthBar.attachment = bossSpriteRenderer.transform.Find("HealthBarAttachment");
             healthBar.scale = 1.5f;

@@ -101,6 +101,7 @@ MonoBehaviour:
   CanPlayerInteract: 1
   CanSpiritInteract: 0
   AutoInteract: 0
+  rotateSound: {fileID: 8300000, guid: 3b072df940ef345499b603ccd04bdd7d, type: 3}
   lineReflector: {fileID: 0}
 --- !u!61 &3226500449177133414
 BoxCollider2D:
