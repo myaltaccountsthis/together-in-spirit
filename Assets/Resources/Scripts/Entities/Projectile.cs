@@ -43,8 +43,5 @@ public class Projectile : Interactable
         Destroy(gameObject);
     }
 
-    public override void Interact(User user)
-    {
-
-    }
+    public override void Interact(User user) {}
 }

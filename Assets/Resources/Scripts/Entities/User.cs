@@ -15,13 +15,15 @@ public abstract class User : LivingEntity
     public AudioClip attackSound;
     protected float attackTimer;
     public RectTransform interactUI;
+    public Sprite deadSprite;
+    public SpriteRenderer spriteRenderer;
     protected HashSet<Interactable> currentInteractables;
     private Vector2 interactOpenPosition, interactClosedPosition;
     protected CameraSystem cameraSystem;
     protected Animator animator;
 
     private bool canMoveInternal = true;
-    public bool CanMove { get => canMoveInternal; set {
+    public virtual bool CanMove { get => canMoveInternal; set {
         canMoveInternal = value;
         if (canMoveInternal) {
             HideInteract();
@@ -154,7 +156,8 @@ public abstract class User : LivingEntity
         cameraSystem.PlayDeathAnimation();
         // Disable animator
         animator.enabled = false;
-        // Set sprite to dead
+        // Set dead sprite
+        spriteRenderer.sprite = deadSprite;
     }
 
     public override void Respawn()

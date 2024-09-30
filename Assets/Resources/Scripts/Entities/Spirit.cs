@@ -12,15 +12,20 @@ public class Spirit : User
 
     /// <summary> Is the spirit trapped? (Boss fight) </summary>
     private bool trapped;
+    public override bool CanMove { get => base.CanMove && !IsTrapped; set => base.CanMove = value; }
+    public bool IsTrapped { get => trapped; set {
+        trapped = value;
+        rigidbody.simulated = !value;
+    } }
 
     protected override void Start()
     {
         base.Start();
-        trapped = false;
+        IsTrapped = false;
     }
 
     protected override void FixedUpdate() {
-        if (!CanMove || trapped) {
+        if (!CanMove || IsTrapped) {
             animator.SetFloat("Horizontal", 0f);
             animator.SetFloat("Vertical", 0f);
             return;
@@ -50,13 +55,12 @@ public class Spirit : User
 
     /// <summary> Does not begin the cutscene. Call that separately </summary>
     public void TrapSpirit() {
-        trapped = true;
-        CanMove = false;
+        IsTrapped = true;
     }
 
     public override bool Attack()
     {
-        if (!base.Attack())
+        if (!CanMove || !base.Attack())
             return false;
         SpiritAttack newAttack = Instantiate(attackHitbox, transform.position, Quaternion.identity);
         newAttack.SetDirection(lastAngle);
@@ -77,7 +81,7 @@ public class Spirit : User
     public override void Respawn()
     {
         base.Respawn();
-        trapped = false;
+        IsTrapped = false;
         CanMove = true;
     }
 }
