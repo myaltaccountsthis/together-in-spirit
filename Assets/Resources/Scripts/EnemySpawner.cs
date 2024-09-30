@@ -6,7 +6,8 @@ using UnityEngine.Events;
 public class EnemySpawner : MonoBehaviour
 {
     private const float START_DELAY = 5f;
-    
+
+    public AudioClip alarmAudio;
     // Sizes should be the same
     [SerializeField] private Enemy[] enemyPrefabs;
     [SerializeField] private string[] spawnCountInfo;
@@ -63,6 +64,7 @@ public class EnemySpawner : MonoBehaviour
             else {
                 intervalTimer = Mathf.Max(0, intervalTimer - Time.deltaTime);
                 showWarning = true;
+                AudioSource.PlayClipAtPoint(alarmAudio, transform.position);
             }
             warningText.enabled = showWarning;
         }

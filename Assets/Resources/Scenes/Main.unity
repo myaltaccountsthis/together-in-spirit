@@ -2176,6 +2176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c52fb93d09a0234e95ef3c159e38f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alarmAudio: {fileID: 8300000, guid: 8c93d43888f9ca7429545c53aa2549df, type: 3}
   enemyPrefabs:
   - {fileID: 4145140263642213336, guid: abc9d7501946ab74b8988f0dbdca2c59, type: 3}
   spawnCountInfo:
@@ -8523,6 +8524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c52fb93d09a0234e95ef3c159e38f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alarmAudio: {fileID: 8300000, guid: 8c93d43888f9ca7429545c53aa2549df, type: 3}
   enemyPrefabs:
   - {fileID: 4145140263642213336, guid: abc9d7501946ab74b8988f0dbdca2c59, type: 3}
   - {fileID: 4145140263642213336, guid: 5e6397e7c9c25474aa2d22b58fb47a3b, type: 3}
@@ -9077,24 +9079,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f6de6901984bd146830163479f781df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundsCollider: {fileID: 164263403}
+  trapSound: {fileID: 8300000, guid: eebe50b095d83b54d808a7cb2c2c34af, type: 3}
+  normalMusic: {fileID: 654234975}
+  bossMusic: {fileID: 848211407}
+  boundsCollider: {fileID: 0}
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  warning: {fileID: 700646824}
-  keyWarning: {fileID: 266444139}
-  bossMinionTransform: {fileID: 77368221}
-  bezierPointTransform: {fileID: 1032618492}
-  bossSprite: {fileID: 21300000, guid: 733f4d8891be81f41bda900381cfb58c, type: 3}
-  bossChargeSprites:
-  - {fileID: 21300000, guid: 52ce6e114db430a41ac8e18d9401e4a1, type: 3}
-  - {fileID: 21300000, guid: 62dd06e1335157d4382c50176140d779, type: 3}
-  bossAttackSprite: {fileID: 21300000, guid: 1419bc0ccfc084140af98e8add27dd9d, type: 3}
-  bossSpriteRenderer: {fileID: 1167327791}
-  machineSpriteRenderer: {fileID: 0}
-  machineSpriteActive: {fileID: 21300000, guid: ae4a05b5ed968fd45a0067d82f0a207e, type: 3}
-  machineSpriteInactive: {fileID: 21300000, guid: 846e0a71ae59be24d8ac1ca244adb66b, type: 3}
-  TIME_TO_SURVIVE: 120
+  warning: {fileID: 0}
+  keyWarning: {fileID: 0}
+  bossMinionTransform: {fileID: 0}
+  bezierPointTransform: {fileID: 0}
+  bossSprite: {fileID: 0}
+  bossChargeSprites: []
+  bossAttackSprite: {fileID: 0}
+  bossSpriteRenderer: {fileID: 364504531}
+  machineSpriteRenderer: {fileID: 1167327791}
+  machineSpriteActive: {fileID: 0}
+  machineSpriteInactive: {fileID: 0}
+  TIME_TO_SURVIVE: 90
 --- !u!1001 &547296913
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9496,6 +9499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c52fb93d09a0234e95ef3c159e38f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alarmAudio: {fileID: 8300000, guid: 8c93d43888f9ca7429545c53aa2549df, type: 3}
   enemyPrefabs:
   - {fileID: 4145140263642213336, guid: abc9d7501946ab74b8988f0dbdca2c59, type: 3}
   - {fileID: 4145140263642213336, guid: 5e6397e7c9c25474aa2d22b58fb47a3b, type: 3}
@@ -12220,6 +12224,134 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 3
   m_ColliderType: 1
+--- !u!1 &848211406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 848211408}
+  - component: {fileID: 848211407}
+  m_Layer: 0
+  m_Name: Boss Music
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!82 &848211407
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848211406}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e125ce90a2a2fa4488d9f0e1e1a861a3, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.05
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &848211408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848211406}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &864081777
 GameObject:
   m_ObjectHideFlags: 0
@@ -34644,8 +34776,8 @@ MonoBehaviour:
   attackCooldown: 0.8
   attackSound: {fileID: 8300000, guid: f475363c289b23f46841aa0318fcaac9, type: 3}
   interactUI: {fileID: 1025572608}
-  deadSprite: {fileID: 21300000, guid: 86d0676ae52d0c7498ec021972503ad5, type: 3}
-  spriteRenderer: {fileID: 107065298}
+  deadSprite: {fileID: 0}
+  spriteRenderer: {fileID: 0}
   dialogueManager: {fileID: 1267129487}
   attackHitbox: {fileID: 4012913262426284374, guid: 0861a6d428aab3f49914ddf1fee7ea0b, type: 3}
   spirit: {fileID: 6152738091414596407}
@@ -34727,8 +34859,8 @@ MonoBehaviour:
   spiritSeparator: {fileID: 1405135012}
   cover: {fileID: 55718204}
   currentRoom: {fileID: 67106715}
-  magicCircle: {fileID: 64478662}
-  endScreen: {fileID: 1421046574}
+  magicCircle: {fileID: 0}
+  endScreen: {fileID: 0}
   InBossFight: 0
 --- !u!114 &6152738091414596407
 MonoBehaviour:
@@ -34749,8 +34881,8 @@ MonoBehaviour:
   attackCooldown: 0.5
   attackSound: {fileID: 8300000, guid: f7d8f0f6eb91941409bf08a20f5b1d6d, type: 3}
   interactUI: {fileID: 447146536}
-  deadSprite: {fileID: 21300000, guid: 7004149fa9c6673449d0f0ff28aa32a9, type: 3}
-  spriteRenderer: {fileID: 75390517}
+  deadSprite: {fileID: 0}
+  spriteRenderer: {fileID: 0}
   dialogueManager: {fileID: 1267129487}
   player: {fileID: 5647783783274005885}
   attackHitbox: {fileID: 818261346187155383, guid: 650e2952ddd85a54196f12e58aa60078, type: 3}
@@ -35062,3 +35194,4 @@ SceneRoots:
   - {fileID: 420371062}
   - {fileID: 1476179561}
   - {fileID: 654234976}
+  - {fileID: 848211408}

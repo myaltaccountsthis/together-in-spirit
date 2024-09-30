@@ -12,6 +12,9 @@ public class BossLevel : MonoBehaviour
     private const float BOSS_CHARGE_DURATION = 2f;
     private const float BOSS_CHARGE_ANIMATION_DELAY = .2f;
     private const float BOSS_HOVER_PERIOD = 4f, BOSS_HOVER_AMPLITUDE = .03f;
+    public AudioClip trapSound;
+    public AudioSource normalMusic;
+    public AudioSource bossMusic;
 
     public BoxCollider2D boundsCollider;
     [HideInInspector] public Bounds bounds;
@@ -91,6 +94,8 @@ public class BossLevel : MonoBehaviour
         if (healthPercent <= 0) {
             active = false;
             bossSpriteRenderer.sprite = bossSprite;
+            bossMusic.gameObject.SetActive(false);
+            normalMusic.gameObject.SetActive(true);
             cameraSystem.OnWin();
             Destroy(gameObject);
             return;
@@ -132,9 +137,11 @@ public class BossLevel : MonoBehaviour
     }
 
     private IEnumerator ActivateBossSequence() {
-        // START BOSS
+        normalMusic.gameObject.SetActive(false);
+        bossMusic.gameObject.SetActive(true);
         yield return new WaitForSeconds(ACTIVATE_DELAY);
         cameraSystem.spirit.TrapSpirit();
+        AudioSource.PlayClipAtPoint(trapSound, transform.position);
         StartCoroutine(cameraSystem.StartTrapSpiritAnimation(() => {
             nextAttackCooldown = GetNextAttackCooldown();
             bossKeySystem.gameObject.SetActive(true);
