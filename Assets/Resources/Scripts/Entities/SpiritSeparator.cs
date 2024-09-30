@@ -26,7 +26,6 @@ public class SpiritSeparator : Interactable
         CanSpiritInteract = false;
         curr = 0;
         answer = Random.Range(1, 1 << levers.Length);
-        Debug.Log("Answer: " + answer.ToBinaryString());
         for (int i = 0; i < levers.Length; i++)
         {
             int bit = 1 << i;
